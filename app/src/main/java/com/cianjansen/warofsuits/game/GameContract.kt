@@ -1,14 +1,14 @@
-package com.cianjansen.warofsuits
+package com.cianjansen.warofsuits.game
 
 import com.cianjansen.warofsuits.base.BasePresenter
 import com.cianjansen.warofsuits.base.BaseView
 
-class MainContract {
+class GameContract {
     interface Presenter : BasePresenter {
-        fun onViewCreated()
+
     }
 
     interface View : BaseView<Presenter> {
-        fun showWelcome()
+
     }
 }

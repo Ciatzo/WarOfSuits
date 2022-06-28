@@ -1,10 +1,12 @@
-package com.cianjansen.warofsuits
+package com.cianjansen.warofsuits.main
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityMainBinding
+import com.cianjansen.warofsuits.game.GameActivity
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -27,6 +29,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+
+        binding.btStartGame.setOnClickListener {
+            presenter.onStartClick()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -46,6 +52,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showWelcome() {
-        Snackbar.make(binding.fab, "Welcome ", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show()    }
+        Snackbar.make(binding.root, "Welcome ", Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+    }
+
+    override fun startGame() {
+        startActivity(GameActivity.newIntent(this))
+    }
 }
