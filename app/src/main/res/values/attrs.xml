@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PlayingCardView">
+        <attr name="cardColor" format="color" />
+        <attr name="suit" format="string" />
+        <attr name="rank" format="string" />
+    </declare-styleable>
+</resources>
