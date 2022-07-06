@@ -3,4 +3,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="single_padding">8dp</dimen>
     <dimen name="double_padding">16dp</dimen>
+    <dimen name="triple_padding">24dp</dimen>
+    <dimen name="quad_padding">32dp</dimen>
 </resources>
