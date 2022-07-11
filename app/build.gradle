@@ -33,10 +33,6 @@ android {
     buildFeatures {
         viewBinding true
     }
-
-    kapt {
-        generateStubs = true
-    }
 }
 
 dependencies {

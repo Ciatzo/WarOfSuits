@@ -10,8 +10,6 @@ import com.cianjansen.warofsuits.model.PlayingCard
 class GameActivity : AppCompatActivity(), GameContract.View {
     private lateinit var binding: ActivityGameBinding
 
-    private var canDraw = true
-
     private lateinit var presenter: GameContract.Presenter
 
     companion object {
@@ -21,8 +19,6 @@ class GameActivity : AppCompatActivity(), GameContract.View {
     }
 
     override fun hideCards(yours: Boolean) {
-        allowDraw(false)
-
         val translationX = if (yours) {
             binding.pcvYours.width.toFloat()
         } else {
@@ -52,7 +48,8 @@ class GameActivity : AppCompatActivity(), GameContract.View {
                 .translationY(0F)
                 .translationX(0F)
                 .duration = 0
-            allowDraw(true)
+            binding.btDrawCardYours.isEnabled = true
+            binding.btDrawCardOpponent.isEnabled = true
         }
 
         val opponentAnim = binding.pcvOpponent.animate()
@@ -76,12 +73,14 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         setContentView(binding.root)
         setPresenter(GamePresenter(this))
 
-        binding.btDrawCardYours.setOnClickListener{
-                presenter.drawCard(true)
+        binding.btDrawCardYours.setOnClickListener {
+            presenter.drawCard(true)
+            binding.btDrawCardYours.isEnabled = false
         }
 
         binding.btDrawCardOpponent.setOnClickListener {
-                presenter.drawCard(false)
+            presenter.drawCard(false)
+            binding.btDrawCardOpponent.isEnabled = false
         }
     }
 
@@ -103,11 +102,5 @@ class GameActivity : AppCompatActivity(), GameContract.View {
     override fun showScore(yourScore: Int, opponentScore: Int) {
         binding.tvDiscardYours.text = yourScore.toString()
         binding.tvDiscardOpponent.text = opponentScore.toString()
-    }
-
-    private fun allowDraw(allow: Boolean) {
-        canDraw = allow
-        binding.btDrawCardYours.isEnabled = allow
-        binding.btDrawCardOpponent.isEnabled = allow
     }
 }
