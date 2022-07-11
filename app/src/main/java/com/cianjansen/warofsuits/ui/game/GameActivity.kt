@@ -10,11 +10,62 @@ import com.cianjansen.warofsuits.model.PlayingCard
 class GameActivity : AppCompatActivity(), GameContract.View {
     private lateinit var binding: ActivityGameBinding
 
+    private var canDraw = true
+
     private lateinit var presenter: GameContract.Presenter
 
     companion object {
         fun newIntent(context: Context): Intent {
             return Intent(context, GameActivity::class.java)
+        }
+    }
+
+    override fun hideCards(yours: Boolean) {
+        allowDraw(false)
+
+        val translationX = if (yours) {
+            binding.pcvYours.width.toFloat()
+        } else {
+            -binding.pcvYours.width.toFloat()
+        }
+
+        val translationYYours = if (yours) {
+            binding.pcvYours.height.toFloat()
+        } else {
+            -2 * binding.pcvYours.height.toFloat()
+        }
+
+        val translationYOpponent = if (yours) {
+            2 * binding.pcvYours.height.toFloat()
+        } else {
+            -binding.pcvYours.height.toFloat()
+        }
+
+        val yourAnim = binding.pcvYours.animate()
+            .translationY(translationYYours)
+            .translationX(translationX)
+            .alpha(0.0f)
+        yourAnim.duration = 1000
+
+        yourAnim.withEndAction {
+            binding.pcvYours.animate()
+                .translationY(0F)
+                .translationX(0F)
+                .duration = 0
+            allowDraw(true)
+        }
+
+        val opponentAnim = binding.pcvOpponent.animate()
+            .translationY(translationYOpponent)
+            .translationX(translationX)
+            .alpha(0.0f)
+        opponentAnim.duration = 1000
+
+        opponentAnim.withEndAction {
+            binding.pcvOpponent.animate()
+                .translationY(0F)
+                .translationX(0F)
+                .duration = 0
         }
     }
 
@@ -25,11 +76,13 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         setContentView(binding.root)
         setPresenter(GamePresenter(this))
 
-        binding.pcvYours.showCard(PlayingCard(PlayingCard.Suit.HEARTS, PlayingCard.Rank.KING))
-        binding.pcvOpponent.showCard(PlayingCard(PlayingCard.Suit.CLUBS, PlayingCard.Rank.FIVE))
+        binding.btDrawCardYours.setOnClickListener{
+                presenter.drawCard(true)
+        }
 
-        binding.btDrawCardYours.setOnClickListener{ presenter.drawCard(true) }
-        binding.btDrawCardOpponent.setOnClickListener { presenter.drawCard(false) }
+        binding.btDrawCardOpponent.setOnClickListener {
+                presenter.drawCard(false)
+        }
     }
 
     override fun setPresenter(presenter: GameContract.Presenter) {
@@ -38,8 +91,11 @@ class GameActivity : AppCompatActivity(), GameContract.View {
 
     override fun showCard(card: PlayingCard?, yours: Boolean) {
         if (yours) {
+            binding.pcvYours.alpha = 1.0f
             binding.pcvYours.showCard(card)
         } else {
+
+            binding.pcvOpponent.alpha = 1.0f
             binding.pcvOpponent.showCard(card)
         }
     }
@@ -47,5 +103,11 @@ class GameActivity : AppCompatActivity(), GameContract.View {
     override fun showScore(yourScore: Int, opponentScore: Int) {
         binding.tvDiscardYours.text = yourScore.toString()
         binding.tvDiscardOpponent.text = opponentScore.toString()
+    }
+
+    private fun allowDraw(allow: Boolean) {
+        canDraw = allow
+        binding.btDrawCardYours.isEnabled = allow
+        binding.btDrawCardOpponent.isEnabled = allow
     }
 }

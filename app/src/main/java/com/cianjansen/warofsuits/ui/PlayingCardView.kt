@@ -40,17 +40,22 @@ class PlayingCardView @JvmOverloads constructor(
 
     private fun init(attrs: AttributeSet?) {
         binding = IPlayingCardBinding.inflate(LayoutInflater.from(context), this)
-
         val ta = context.obtainStyledAttributes(attrs, R.styleable.PlayingCardView)
 
         try {
             val suit = ta.getString(R.styleable.PlayingCardView_suit)
             val rank = ta.getString(R.styleable.PlayingCardView_rank)
 
-            val cardText = rank + "\n" + suit
+            if (suit == null || suit == "" || rank == null || rank == "") {
+                binding.ivBackground.visibility = GONE
+                binding.tvTopLeft.visibility = GONE
+                binding.tvBottomRight.visibility = GONE
+            } else {
+                val cardText = rank + "\n" + suit
 
-            binding.tvTopLeft.text = cardText
-            binding.tvBottomRight.text = cardText
+                binding.tvTopLeft.text = cardText
+                binding.tvBottomRight.text = cardText
+            }
         } finally {
             ta.recycle()
         }

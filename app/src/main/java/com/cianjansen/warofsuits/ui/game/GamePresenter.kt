@@ -29,24 +29,20 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
             yourCard?.let { yc ->
                 opponentCard?.let { oc ->
                     if (deck.compareCards(yc, oc) > 0) {
-                        yourScore++
+                        yourScore += 2
+                        view.hideCards(true)
                     } else {
-                        opponentScore++
+                        opponentScore += 2
+                        view.hideCards(false)
                     }
 
                     yourCard = null
                     opponentCard = null
-
-                    resetCards()
                 }
             }
 
             view.showScore(yourScore, opponentScore)
         }
-    }
-
-    private fun resetCards() {
-
     }
 
     private fun showCards() {

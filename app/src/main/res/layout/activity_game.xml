@@ -9,8 +9,6 @@
         android:id="@+id/pcv_yours"
         android:layout_width="150dp"
         android:layout_height="225dp"
-        app:suit="♣"
-        app:rank="2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,8 +18,6 @@
         android:id="@+id/pcv_opponent"
         android:layout_width="150dp"
         android:layout_height="225dp"
-        app:suit="♥"
-        app:rank="5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -35,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/quad_padding"
         android:layout_marginLeft="@dimen/double_padding"
-        android:text="draw card"/>
+        android:text="@string/game_activity_draw_card"/>
 
     <Button
         android:id="@+id/btDrawCardOpponent"
@@ -46,7 +42,7 @@
         android:layout_marginTop="@dimen/quad_padding"
         android:layout_marginRight="@dimen/double_padding"
         android:rotation = "180"
-        android:text="draw card"/>
+        android:text="@string/game_activity_draw_card"/>
 
     <TextView
         android:id="@+id/tvDiscardYours"
@@ -57,7 +53,7 @@
         android:layout_marginRight="@dimen/double_padding"
         android:layout_marginBottom="@dimen/quad_padding"
         android:backgroundTint="@color/cardview_light_background"
-        tools:text="50"
+        android:text="@string/game_activity_zero"
         android:textSize="45sp"/>
 
     <TextView
@@ -70,7 +66,7 @@
         android:layout_marginTop="@dimen/quad_padding"
         android:rotation="180"
         android:backgroundTint="@color/cardview_light_background"
-        tools:text="50"
+        android:text="@string/game_activity_zero"
         android:textSize="45sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
