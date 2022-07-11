@@ -1,6 +1,6 @@
 package com.cianjansen.warofsuits.model
 
-class PlayingCard(val suit: Suit, val rank: Rank) {
+open class PlayingCard(val suit: Suit, val rank: Rank) {
     enum class Suit {
         HEARTS {
             override fun toString(): String {

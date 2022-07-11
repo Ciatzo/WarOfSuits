@@ -6,12 +6,12 @@ import com.cianjansen.warofsuits.model.PlayingCard
 
 class GameContract {
     interface Presenter : BasePresenter {
-        fun drawCards()
+        fun drawCard(yours: Boolean)
     }
 
     interface View : BaseView<Presenter> {
-        fun showCard(card: PlayingCard, yours: Boolean)
+        fun showCard(card: PlayingCard?, yours: Boolean)
 
-        fun showScore(score: Int)
+        fun showScore(yourScore: Int, opponentScore: Int)
     }
 }

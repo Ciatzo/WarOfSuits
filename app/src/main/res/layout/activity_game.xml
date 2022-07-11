@@ -37,6 +37,17 @@
         android:layout_marginLeft="@dimen/double_padding"
         android:text="draw card"/>
 
+    <Button
+        android:id="@+id/btDrawCardOpponent"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/quad_padding"
+        android:layout_marginRight="@dimen/double_padding"
+        android:rotation = "180"
+        android:text="draw card"/>
+
     <TextView
         android:id="@+id/tvDiscardYours"
         android:layout_width="wrap_content"
@@ -49,6 +60,17 @@
         tools:text="50"
         android:textSize="45sp"/>
 
-
+    <TextView
+        android:id="@+id/tvDiscardOpponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/double_padding"
+        android:layout_marginTop="@dimen/quad_padding"
+        android:rotation="180"
+        android:backgroundTint="@color/cardview_light_background"
+        tools:text="50"
+        android:textSize="45sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

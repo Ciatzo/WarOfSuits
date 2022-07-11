@@ -28,14 +28,15 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         binding.pcvYours.showCard(PlayingCard(PlayingCard.Suit.HEARTS, PlayingCard.Rank.KING))
         binding.pcvOpponent.showCard(PlayingCard(PlayingCard.Suit.CLUBS, PlayingCard.Rank.FIVE))
 
-        binding.btDrawCardYours.setOnClickListener{ presenter.drawCards() }
+        binding.btDrawCardYours.setOnClickListener{ presenter.drawCard(true) }
+        binding.btDrawCardOpponent.setOnClickListener { presenter.drawCard(false) }
     }
 
     override fun setPresenter(presenter: GameContract.Presenter) {
         this.presenter = presenter
     }
 
-    override fun showCard(card: PlayingCard, yours: Boolean) {
+    override fun showCard(card: PlayingCard?, yours: Boolean) {
         if (yours) {
             binding.pcvYours.showCard(card)
         } else {
@@ -43,7 +44,8 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         }
     }
 
-    override fun showScore(score: Int) {
-        binding.tvDiscardYours.text = score.toString()
+    override fun showScore(yourScore: Int, opponentScore: Int) {
+        binding.tvDiscardYours.text = yourScore.toString()
+        binding.tvDiscardOpponent.text = opponentScore.toString()
     }
 }
