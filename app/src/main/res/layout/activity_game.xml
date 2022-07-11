@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <com.cianjansen.warofsuits.ui.PlayingCardView
         android:id="@+id/pcv_yours"
@@ -61,7 +62,8 @@
         android:layout_marginBottom="@dimen/quad_padding"
         android:backgroundTint="@color/cardview_light_background"
         android:text="@string/game_activity_zero"
-        android:textSize="@dimen/text_extra_large"/>
+        android:textSize="@dimen/text_extra_large"
+        android:textColor="@color/gray_800"/>
 
     <TextView
         android:id="@+id/tvDiscardOpponent"
@@ -74,6 +76,7 @@
         android:rotation="180"
         android:backgroundTint="@color/cardview_light_background"
         android:text="@string/game_activity_zero"
-        android:textSize="@dimen/text_extra_large"/>
+        android:textSize="@dimen/text_extra_large"
+        android:textColor="@color/gray_800"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,12 +42,15 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             .translationX(translationX)
             .alpha(0.0f)
         yourAnim.duration = 1000
+        yourAnim.startDelay = 800
 
         yourAnim.withEndAction {
-            binding.pcvYours.animate()
+            val endAnim = binding.pcvYours.animate()
                 .translationY(0F)
                 .translationX(0F)
-                .duration = 0
+            endAnim.duration = 0
+            endAnim.startDelay = 0
+            
             binding.btDrawCardYours.isEnabled = true
             binding.btDrawCardOpponent.isEnabled = true
         }
@@ -57,12 +60,14 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             .translationX(translationX)
             .alpha(0.0f)
         opponentAnim.duration = 1000
+        opponentAnim.startDelay = 800
 
         opponentAnim.withEndAction {
-            binding.pcvOpponent.animate()
+            val endAnim = binding.pcvOpponent.animate()
                 .translationY(0F)
                 .translationX(0F)
-                .duration = 0
+            endAnim.duration = 0
+            endAnim.startDelay = 0
         }
     }
 
