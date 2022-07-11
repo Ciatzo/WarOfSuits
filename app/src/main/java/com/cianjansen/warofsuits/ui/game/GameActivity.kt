@@ -90,12 +90,12 @@ class GameActivity : AppCompatActivity(), GameContract.View {
 
     override fun showCard(card: PlayingCard?, yours: Boolean) {
         if (yours) {
-            binding.pcvYours.alpha = 1.0f
             binding.pcvYours.showCard(card)
+            binding.pcvYours.alpha = 1.0f
         } else {
 
-            binding.pcvOpponent.alpha = 1.0f
             binding.pcvOpponent.showCard(card)
+            binding.pcvOpponent.alpha = 1.0f
         }
     }
 
