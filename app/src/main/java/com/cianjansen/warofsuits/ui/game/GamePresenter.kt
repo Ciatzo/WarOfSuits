@@ -1,4 +1,4 @@
-package com.cianjansen.warofsuits.game
+package com.cianjansen.warofsuits.ui.game
 
 import com.cianjansen.warofsuits.model.Deck
 

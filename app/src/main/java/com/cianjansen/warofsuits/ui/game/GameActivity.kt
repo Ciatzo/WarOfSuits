@@ -1,4 +1,4 @@
-package com.cianjansen.warofsuits.game
+package com.cianjansen.warofsuits.ui.game
 
 import android.content.Context
 import android.content.Intent

@@ -1,4 +1,4 @@
-package com.cianjansen.warofsuits.main
+package com.cianjansen.warofsuits.ui.main
 
 
 class MainPresenter(private var view: MainContract.View) : MainContract.Presenter {

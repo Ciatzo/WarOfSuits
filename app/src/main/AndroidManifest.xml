@@ -4,6 +4,7 @@
     package="com.cianjansen.warofsuits">
 
     <application
+        android:name=".application.WarOfSuitsApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,7 +15,7 @@
         android:theme="@style/Theme.WarOfSuits.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".game.GameActivity"
-            android:parentActivityName=".main.MainActivity"/>
+            android:name=".ui.game.GameActivity"
+            android:parentActivityName=".ui.main.MainActivity"/>
     </application>
 
 </manifest>

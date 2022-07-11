@@ -1,4 +1,4 @@
-package com.cianjansen.warofsuits.main
+package com.cianjansen.warofsuits.ui.main
 
 import android.os.Bundle
 import android.view.Menu
@@ -6,7 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityMainBinding
-import com.cianjansen.warofsuits.game.GameActivity
+import com.cianjansen.warofsuits.ui.game.GameActivity
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), MainContract.View {

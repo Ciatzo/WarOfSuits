@@ -1,9 +1,10 @@
-package com.cianjansen.warofsuits
+package com.cianjansen.warofsuits.ui
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.IPlayingCardBinding
 import com.cianjansen.warofsuits.model.PlayingCard
 
