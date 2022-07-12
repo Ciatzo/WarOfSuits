@@ -58,6 +58,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun startGame() {
-        startActivity(VictoryActivity.newIntent(this, 26))
+        startActivity(GameActivity.newIntent(this))
     }
 }

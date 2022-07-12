@@ -19,5 +19,7 @@ class GameContract {
         fun showScore(yourScore: Int, opponentScore: Int)
 
         fun showSuitOrder(suitOrder: String)
+
+        fun showVictoryActivity(yourScore: Int)
     }
 }

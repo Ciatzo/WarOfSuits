@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityGameBinding
 import com.cianjansen.warofsuits.model.PlayingCard
+import com.cianjansen.warofsuits.ui.victory.VictoryActivity
 
 class GameActivity : AppCompatActivity(), GameContract.View {
     private lateinit var binding: ActivityGameBinding
@@ -14,6 +15,20 @@ class GameActivity : AppCompatActivity(), GameContract.View {
     private lateinit var presenter: GameContract.Presenter
 
     companion object {
+        private const val ANIMATION_END_ALPHA = 0f
+
+        private const val ANIMATION_HIGHLIGHT_DURATION = 800L / 4
+
+        private const val ANIMATION_MOVE_DURATION = 1000L / 4
+
+        private const val ANIMATION_RESET_DURATION = 0L
+
+        private const val ANIMATION_RESET_FACTOR = 0f
+
+        private const val ANIMATION_START_ALPHA = 1f
+
+        private const val ANIMATION_X_MOVE_FACTOR = 2
+
         fun newIntent(context: Context): Intent {
             return Intent(context, GameActivity::class.java)
         }
@@ -29,11 +44,11 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         val translationYYours = if (yours) {
             binding.pcvYours.height.toFloat()
         } else {
-            -2 * binding.pcvYours.height.toFloat()
+            -ANIMATION_X_MOVE_FACTOR * binding.pcvYours.height.toFloat()
         }
 
         val translationYOpponent = if (yours) {
-            2 * binding.pcvYours.height.toFloat()
+            ANIMATION_X_MOVE_FACTOR * binding.pcvYours.height.toFloat()
         } else {
             -binding.pcvYours.height.toFloat()
         }
@@ -41,16 +56,16 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         val yourAnim = binding.pcvYours.animate()
             .translationY(translationYYours)
             .translationX(translationX)
-            .alpha(0.0f)
-        yourAnim.duration = 1000
-        yourAnim.startDelay = 800
+            .alpha(ANIMATION_END_ALPHA)
+        yourAnim.duration = ANIMATION_MOVE_DURATION
+        yourAnim.startDelay = ANIMATION_HIGHLIGHT_DURATION
 
         yourAnim.withEndAction {
             val endAnim = binding.pcvYours.animate()
-                .translationY(0F)
-                .translationX(0F)
-            endAnim.duration = 0
-            endAnim.startDelay = 0
+                .translationY(ANIMATION_RESET_FACTOR)
+                .translationX(ANIMATION_RESET_FACTOR)
+            endAnim.duration = ANIMATION_RESET_DURATION
+            endAnim.startDelay = ANIMATION_RESET_DURATION
 
             binding.btDrawCardYours.isEnabled = true
             binding.btDrawCardOpponent.isEnabled = true
@@ -59,16 +74,16 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         val opponentAnim = binding.pcvOpponent.animate()
             .translationY(translationYOpponent)
             .translationX(translationX)
-            .alpha(0.0f)
-        opponentAnim.duration = 1000
-        opponentAnim.startDelay = 800
+            .alpha(ANIMATION_END_ALPHA)
+        opponentAnim.duration = ANIMATION_MOVE_DURATION
+        opponentAnim.startDelay = ANIMATION_HIGHLIGHT_DURATION
 
         opponentAnim.withEndAction {
             val endAnim = binding.pcvOpponent.animate()
-                .translationY(0F)
-                .translationX(0F)
-            endAnim.duration = 0
-            endAnim.startDelay = 0
+                .translationY(ANIMATION_RESET_FACTOR)
+                .translationX(ANIMATION_RESET_FACTOR)
+            endAnim.duration = ANIMATION_RESET_DURATION
+            endAnim.startDelay = ANIMATION_RESET_DURATION
         }
     }
 
@@ -98,11 +113,11 @@ class GameActivity : AppCompatActivity(), GameContract.View {
     override fun showCard(card: PlayingCard?, yours: Boolean) {
         if (yours) {
             binding.pcvYours.showCard(card)
-            binding.pcvYours.alpha = 1.0f
+            binding.pcvYours.alpha = ANIMATION_START_ALPHA
         } else {
 
             binding.pcvOpponent.showCard(card)
-            binding.pcvOpponent.alpha = 1.0f
+            binding.pcvOpponent.alpha = ANIMATION_START_ALPHA
         }
     }
 
@@ -115,5 +130,10 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         val suitOrderString = getString(R.string.suit_order) + "\n" + suitOrder
         binding.tvSuitOrderOpponent.text = suitOrderString
         binding.tvSuitOrderYours.text = suitOrderString
+    }
+
+    override fun showVictoryActivity(yourScore: Int) {
+        startActivity(VictoryActivity.newIntent(this, yourScore))
+        finish()
     }
 }

@@ -42,6 +42,10 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
             }
 
             view.showScore(yourScore, opponentScore)
+
+            if (deck.cards.isEmpty()) {
+                view.showVictoryActivity(yourScore)
+            }
         }
     }
 
