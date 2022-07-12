@@ -5,9 +5,11 @@
     <dimen name="double_padding">16dp</dimen>
     <dimen name="triple_padding">24dp</dimen>
     <dimen name="quad_padding">32dp</dimen>
-    <dimen name="playing_card_width">150dp</dimen>
-    <dimen name="playing_card_height">225dp</dimen>
+    <dimen name="offset_button">96dp</dimen>
+    <dimen name="playing_card_width">120dp</dimen>
+    <dimen name="playing_card_height">180dp</dimen>
     <dimen name="text_extra_large">45sp</dimen>
     <dimen name="text_playing_card">24sp</dimen>
     <dimen name="text_suit_order">18sp</dimen>
+    <dimen name="button_small">38dp</dimen>
 </resources>
