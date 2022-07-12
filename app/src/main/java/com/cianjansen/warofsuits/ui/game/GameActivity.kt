@@ -1,12 +1,18 @@
 package com.cianjansen.warofsuits.ui.game
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityGameBinding
 import com.cianjansen.warofsuits.model.PlayingCard
+import com.cianjansen.warofsuits.ui.ForfeitDialog
+import com.cianjansen.warofsuits.ui.PlayingCardView
 import com.cianjansen.warofsuits.ui.victory.VictoryActivity
 
 class GameActivity : AppCompatActivity(), GameContract.View {
@@ -104,6 +110,9 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             presenter.drawCard(false)
             binding.btDrawCardOpponent.isEnabled = false
         }
+
+        binding.btForfeitYours.setOnClickListener { showForfeitDialog(true) }
+        binding.btForfeitOpponent.setOnClickListener { showForfeitDialog(false) }
     }
 
     override fun setPresenter(presenter: GameContract.Presenter) {
@@ -135,5 +144,14 @@ class GameActivity : AppCompatActivity(), GameContract.View {
     override fun showVictoryActivity(yourScore: Int) {
         startActivity(VictoryActivity.newIntent(this, yourScore))
         finish()
+    }
+
+    private fun showForfeitDialog(yours: Boolean) {
+        val onPositive = {
+            presenter.gameForfeited(yours)
+        }
+
+        val dial = ForfeitDialog(this, !yours, onPositive)
+        dial.show()
     }
 }

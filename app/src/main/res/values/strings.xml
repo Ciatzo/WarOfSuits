@@ -4,6 +4,9 @@
     <string name="main_start_game">Start Game</string>
     <string name="game_activity_zero">0</string>
     <string name="game_activity_draw_card">Draw Card</string>
+    <string name="game_activity_forfeit">Do you want to forfeit the game?</string>
+    <string name="game_activity_forfeit_yes">Give Up</string>
+    <string name="game_activity_forfeit_no">Keep Playing</string>
     <string name="suit_order">Suit Priority:</string>
     <string name="victory_activity_victory">🎉 You Win! 🎉\nFinal Score:\n</string>
     <string name="victory_activity_defeat">😞 You Lose… 😞\nFinal Score:\n</string>

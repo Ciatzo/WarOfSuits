@@ -49,6 +49,14 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
         }
     }
 
+    override fun gameForfeited(yours: Boolean) {
+        if (yours) {
+            view.showVictoryActivity(yourScore)
+        } else {
+            view.showVictoryActivity(yourScore + deck.cards.size)
+        }
+    }
+
     override fun onViewCreated() {
 
         view.showSuitOrder(deck.suitOrder.joinToString(separator = ">"))
