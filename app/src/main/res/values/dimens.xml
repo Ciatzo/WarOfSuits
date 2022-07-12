@@ -9,4 +9,5 @@
     <dimen name="playing_card_height">225dp</dimen>
     <dimen name="text_extra_large">45sp</dimen>
     <dimen name="text_playing_card">24sp</dimen>
+    <dimen name="text_suit_order">18sp</dimen>
 </resources>

@@ -4,7 +4,7 @@ class Deck(shuffled: Boolean, randomSuitOrder: Boolean = true) {
 
     var cards: MutableList<PlayingCard> = ArrayList(DECK_CAPACITY)
 
-    private val suitOrder: List<PlayingCard.Suit>
+    val suitOrder: List<PlayingCard.Suit>
 
     companion object {
         private const val DECK_CAPACITY = 52

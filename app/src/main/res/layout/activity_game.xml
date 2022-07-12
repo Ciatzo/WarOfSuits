@@ -79,4 +79,28 @@
         android:textSize="@dimen/text_extra_large"
         android:textColor="@color/gray_800"/>
 
+    <TextView
+        android:id="@+id/tvSuitOrderYours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/btDrawCardYours"
+        android:textSize="@dimen/text_suit_order"
+        tools:text="Suit Priority:\nA>B>C>D"
+        android:gravity="center"/>
+
+
+    <TextView
+        android:id="@+id/tvSuitOrderOpponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btDrawCardOpponent"
+        android:textSize="@dimen/text_suit_order"
+        android:rotation="180"
+        tools:text="A>B>C>D"
+        android:gravity="center"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

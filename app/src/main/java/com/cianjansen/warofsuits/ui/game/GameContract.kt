@@ -7,6 +7,8 @@ import com.cianjansen.warofsuits.model.PlayingCard
 class GameContract {
     interface Presenter : BasePresenter {
         fun drawCard(yours: Boolean)
+
+        fun onViewCreated()
     }
 
     interface View : BaseView<Presenter> {
@@ -15,5 +17,7 @@ class GameContract {
         fun showCard(card: PlayingCard?, yours: Boolean)
 
         fun showScore(yourScore: Int, opponentScore: Int)
+
+        fun showSuitOrder(suitOrder: String)
     }
 }

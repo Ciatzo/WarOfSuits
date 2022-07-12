@@ -4,4 +4,5 @@
     <string name="main_start_game">Start Game</string>
     <string name="game_activity_zero">0</string>
     <string name="game_activity_draw_card">Draw Card</string>
+    <string name="suit_order">Suit Priority:</string>
 </resources>

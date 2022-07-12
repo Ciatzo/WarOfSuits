@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityGameBinding
 import com.cianjansen.warofsuits.model.PlayingCard
 
@@ -50,7 +51,7 @@ class GameActivity : AppCompatActivity(), GameContract.View {
                 .translationX(0F)
             endAnim.duration = 0
             endAnim.startDelay = 0
-            
+
             binding.btDrawCardYours.isEnabled = true
             binding.btDrawCardOpponent.isEnabled = true
         }
@@ -77,6 +78,7 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setPresenter(GamePresenter(this))
+        presenter.onViewCreated()
 
         binding.btDrawCardYours.setOnClickListener {
             presenter.drawCard(true)
@@ -107,5 +109,11 @@ class GameActivity : AppCompatActivity(), GameContract.View {
     override fun showScore(yourScore: Int, opponentScore: Int) {
         binding.tvDiscardYours.text = yourScore.toString()
         binding.tvDiscardOpponent.text = opponentScore.toString()
+    }
+
+    override fun showSuitOrder(suitOrder: String) {
+        val suitOrderString = getString(R.string.suit_order) + "\n" + suitOrder
+        binding.tvSuitOrderOpponent.text = suitOrderString
+        binding.tvSuitOrderYours.text = suitOrderString
     }
 }

@@ -4,5 +4,7 @@
     <dimen name="playing_card_height">120dp</dimen>
     <dimen name="text_extra_large">30sp</dimen>
     <dimen name="text_playing_card">16sp</dimen>
+    <dimen name="text_suit_order">12sp</dimen>
+
 
 </resources>

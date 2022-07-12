@@ -45,6 +45,11 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
         }
     }
 
+    override fun onViewCreated() {
+
+        view.showSuitOrder(deck.suitOrder.joinToString(separator = ">"))
+    }
+
     private fun showCards() {
         view.showCard(yourCard, true)
         view.showCard(opponentCard, false)
