@@ -9,4 +9,7 @@
     <color name="gray_800">#CD000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="card_yellow">#FFF4C5</color>
+    <color name="green_victory">#4CAF50</color>
+    <color name="red_defeat">#F44336</color>
+    <color name="orange_draw">#FF9800</color>
 </resources>

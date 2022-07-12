@@ -5,4 +5,8 @@
     <string name="game_activity_zero">0</string>
     <string name="game_activity_draw_card">Draw Card</string>
     <string name="suit_order">Suit Priority:</string>
+    <string name="victory_activity_victory">🎉 You Win! 🎉\nFinal Score:\n</string>
+    <string name="victory_activity_defeat">😞 You Lose… 😞\nFinal Score:\n</string>
+    <string name="victory_activity_draw">😐 It\'s a Draw 😐\nFinal Score:\n</string>
+    <string name="victory_activity_go_home">Go Home</string>
 </resources>

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityMainBinding
 import com.cianjansen.warofsuits.ui.game.GameActivity
+import com.cianjansen.warofsuits.ui.victory.VictoryActivity
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -57,6 +58,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun startGame() {
-        startActivity(GameActivity.newIntent(this))
+        startActivity(VictoryActivity.newIntent(this, 26))
     }
 }
