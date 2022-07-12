@@ -1,18 +1,13 @@
 package com.cianjansen.warofsuits.ui.game
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityGameBinding
 import com.cianjansen.warofsuits.model.PlayingCard
-import com.cianjansen.warofsuits.ui.ForfeitDialog
-import com.cianjansen.warofsuits.ui.PlayingCardView
+import com.cianjansen.warofsuits.ui.TwoOptionDialog
 import com.cianjansen.warofsuits.ui.victory.VictoryActivity
 
 class GameActivity : AppCompatActivity(), GameContract.View {
@@ -151,7 +146,14 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             presenter.gameForfeited(yours)
         }
 
-        val dial = ForfeitDialog(this, !yours, onPositive)
-        dial.show()
+       TwoOptionDialog(
+            this,
+            !yours,
+            onPositive,
+            getString(R.string.game_activity_forfeit),
+            getString(R.string.game_activity_forfeit_yes),
+            getString(R.string.game_activity_forfeit_no)
+        ).show()
     }
+
 }
