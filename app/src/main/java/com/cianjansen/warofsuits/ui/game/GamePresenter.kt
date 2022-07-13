@@ -19,39 +19,40 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
     private var turnList: ArrayList<TurnSummary> = ArrayList()
 
     override fun drawCard(yours: Boolean) {
+        if (deck.cards.isEmpty()) {
+            view.startVictoryActivity(yourScore, turnList)
+        }
 
-        if (deck.cards.isNotEmpty()) {
-            if (yours && yourCard == null) {
-                yourCard = deck.cards.removeFirst()
-            } else if (!yours && opponentCard == null) {
-                opponentCard = deck.cards.removeLast()
-            }
+        if (yours && yourCard == null) {
+            yourCard = deck.cards.removeFirst()
+        } else if (!yours && opponentCard == null) {
+            opponentCard = deck.cards.removeLast()
+        }
 
-            showCards()
+        showCards()
 
-            yourCard?.let { yc ->
-                opponentCard?.let { oc ->
-                    val yourWin = deck.compareCards(yc, oc) > 0
+        yourCard?.let { yc ->
+            opponentCard?.let { oc ->
+                val yourWin = deck.compareCards(yc, oc) > 0
 
-                    if (yourWin) {
-                        yourScore += 2
-                        view.hideCards(true)
-                    } else {
-                        opponentScore += 2
-                        view.hideCards(false)
-                    }
-
-                    turnList.add(TurnSummary(yc, oc, yourWin))
-                    yourCard = null
-                    opponentCard = null
+                if (yourWin) {
+                    yourScore += 2
+                    view.showWinner(true)
+                } else {
+                    opponentScore += 2
+                    view.showWinner(false)
                 }
-            }
 
-            view.showScore(yourScore, opponentScore)
-
-            if (deck.cards.isEmpty()) {
-                view.startVictoryActivity(yourScore, turnList)
+                turnList.add(TurnSummary(yc, oc, yourWin))
+                yourCard = null
+                opponentCard = null
             }
+        }
+
+        view.showScore(yourScore, opponentScore)
+
+        if (deck.cards.isEmpty()) {
+            view.startVictoryActivity(yourScore, turnList)
         }
     }
 

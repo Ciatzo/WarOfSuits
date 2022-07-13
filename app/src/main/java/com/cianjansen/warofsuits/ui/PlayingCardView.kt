@@ -46,7 +46,7 @@ class PlayingCardView @JvmOverloads constructor(
             val suit = ta.getString(R.styleable.PlayingCardView_suit)
             val rank = ta.getString(R.styleable.PlayingCardView_rank)
 
-            if (suit == null || suit == "" || rank == null || rank == "") {
+            if (suit.isNullOrEmpty() || rank.isNullOrEmpty()) {
                 binding.ivBackground.visibility = GONE
                 binding.tvTopLeft.visibility = GONE
                 binding.tvBottomRight.visibility = GONE

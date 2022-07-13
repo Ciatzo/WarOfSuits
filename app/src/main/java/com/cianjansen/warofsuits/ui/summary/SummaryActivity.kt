@@ -11,13 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cianjansen.warofsuits.databinding.ActivitySummaryBinding
 import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.ui.TurnView
-import com.cianjansen.warofsuits.ui.victory.VictoryActivity
 
 
-class SummaryActivity : AppCompatActivity(), SummaryContract.View {
+class SummaryActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySummaryBinding
-
-    private lateinit var presenter: SummaryContract.Presenter
 
     companion object {
         private const val EXTRA_TURN_LIST = "EXTRA_TURN_LIST"
@@ -41,7 +38,6 @@ class SummaryActivity : AppCompatActivity(), SummaryContract.View {
         setSupportActionBar(binding.toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setPresenter(SummaryPresenter(this))
 
         val turnList = intent.getParcelableArrayListExtra<TurnSummary>(EXTRA_TURN_LIST)
 
@@ -59,10 +55,6 @@ class SummaryActivity : AppCompatActivity(), SummaryContract.View {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun setPresenter(presenter: SummaryContract.Presenter) {
-        this.presenter = presenter
     }
 
     class TurnAdapter(private val turnList: ArrayList<TurnSummary>) :

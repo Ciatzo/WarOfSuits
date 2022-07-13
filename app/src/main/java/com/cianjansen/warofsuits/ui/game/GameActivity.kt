@@ -23,6 +23,8 @@ class GameActivity : AppCompatActivity(), GameContract.View {
 
         private const val ANIMATION_HIGHLIGHT_DURATION = 800L / 30
 
+        private const val ANIMATION_GROW_SCALE = 1.3f
+
         private const val ANIMATION_MOVE_DURATION = 1000L / 20
 
         private const val ANIMATION_RESET_DURATION = 0L
@@ -40,25 +42,7 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         }
     }
 
-    override fun hideCards(yours: Boolean) {
-        val translationX = if (yours) {
-            binding.pcvYours.width.toFloat()
-        } else {
-            -binding.pcvYours.width.toFloat()
-        }
-
-        val translationYYours = if (yours) {
-            binding.pcvYours.height.toFloat()
-        } else {
-            -ANIMATION_X_MOVE_FACTOR * binding.pcvYours.height.toFloat()
-        }
-
-        val translationYOpponent = if (yours) {
-            ANIMATION_X_MOVE_FACTOR * binding.pcvYours.height.toFloat()
-        } else {
-            -binding.pcvYours.height.toFloat()
-        }
-
+    override fun showWinner(yours: Boolean) {
         val winAnim = if (yours) {
             binding.pcvYours.animate()
         } else {
@@ -66,8 +50,8 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         }
 
         winAnim
-            .scaleX(1.3f)
-            .scaleY(1.3f)
+            .scaleX(ANIMATION_GROW_SCALE)
+            .scaleY(ANIMATION_GROW_SCALE)
             .duration = ANIMATION_HIGHLIGHT_DURATION
 
         winAnim.withEndAction {
@@ -83,36 +67,7 @@ class GameActivity : AppCompatActivity(), GameContract.View {
                 .duration = ANIMATION_HIGHLIGHT_DURATION
 
             resetScaleAnim.withEndAction {
-                val yoursAnim = binding.pcvYours.animate()
-                    .translationY(translationYYours)
-                    .translationX(translationX)
-                    .alpha(ANIMATION_END_ALPHA)
-                yoursAnim.duration = ANIMATION_MOVE_DURATION
-
-                yoursAnim.withEndAction {
-                    val endAnim = binding.pcvYours.animate()
-                        .translationY(ANIMATION_RESET_FACTOR)
-                        .translationX(ANIMATION_RESET_FACTOR)
-                    endAnim.duration = ANIMATION_RESET_DURATION
-                    endAnim.startDelay = ANIMATION_RESET_DURATION
-
-                    binding.btDrawCardYours.isEnabled = true
-                    binding.btDrawCardOpponent.isEnabled = true
-                }
-
-                val opponentAnim = binding.pcvOpponent.animate()
-                    .translationY(translationYOpponent)
-                    .translationX(translationX)
-                    .alpha(ANIMATION_END_ALPHA)
-                opponentAnim.duration = ANIMATION_MOVE_DURATION
-
-                opponentAnim.withEndAction {
-                    val endAnim = binding.pcvOpponent.animate()
-                        .translationY(ANIMATION_RESET_FACTOR)
-                        .translationX(ANIMATION_RESET_FACTOR)
-                    endAnim.duration = ANIMATION_RESET_DURATION
-                    endAnim.startDelay = ANIMATION_RESET_DURATION
-                }
+                hideCards(yours)
             }
         }
     }
@@ -187,6 +142,57 @@ class GameActivity : AppCompatActivity(), GameContract.View {
     override fun startVictoryActivity(yourScore: Int, turnList: ArrayList<TurnSummary>) {
         startActivity(VictoryActivity.newIntent(this, yourScore, turnList))
         finish()
+    }
+
+    private fun hideCards(yours: Boolean) {
+        val translationX = if (yours) {
+            binding.pcvYours.width.toFloat()
+        } else {
+            -binding.pcvYours.width.toFloat()
+        }
+
+        val yTranslationYourCard = if (yours) {
+            binding.pcvYours.height.toFloat()
+        } else {
+            -ANIMATION_X_MOVE_FACTOR * binding.pcvYours.height.toFloat()
+        }
+
+        val yTranslationOpponentCard = if (yours) {
+            ANIMATION_X_MOVE_FACTOR * binding.pcvYours.height.toFloat()
+        } else {
+            -binding.pcvYours.height.toFloat()
+        }
+
+        val yourCardAnimation = binding.pcvYours.animate()
+            .translationY(yTranslationYourCard)
+            .translationX(translationX)
+            .alpha(ANIMATION_END_ALPHA)
+        yourCardAnimation.duration = ANIMATION_MOVE_DURATION
+
+        yourCardAnimation.withEndAction {
+            val endAnim = binding.pcvYours.animate()
+                .translationY(ANIMATION_RESET_FACTOR)
+                .translationX(ANIMATION_RESET_FACTOR)
+            endAnim.duration = ANIMATION_RESET_DURATION
+            endAnim.startDelay = ANIMATION_RESET_DURATION
+
+            binding.btDrawCardYours.isEnabled = true
+            binding.btDrawCardOpponent.isEnabled = true
+        }
+
+        val opponentCardAnimation = binding.pcvOpponent.animate()
+            .translationY(yTranslationOpponentCard)
+            .translationX(translationX)
+            .alpha(ANIMATION_END_ALPHA)
+        opponentCardAnimation.duration = ANIMATION_MOVE_DURATION
+
+        opponentCardAnimation.withEndAction {
+            val endAnim = binding.pcvOpponent.animate()
+                .translationY(ANIMATION_RESET_FACTOR)
+                .translationX(ANIMATION_RESET_FACTOR)
+            endAnim.duration = ANIMATION_RESET_DURATION
+            endAnim.startDelay = ANIMATION_RESET_DURATION
+        }
     }
 
     private fun showForfeitDialog(yours: Boolean) {

@@ -17,7 +17,7 @@ class GameContract {
     }
 
     interface View : BaseView<Presenter> {
-        fun hideCards(yours: Boolean)
+        fun showWinner(yours: Boolean)
 
         fun showCard(card: PlayingCard?, yours: Boolean)
 

@@ -15,6 +15,10 @@ class TwoOptionDialog(
 ) : Dialog(context) {
     private lateinit var binding: DTwoOptionDialogBinding
 
+    companion object {
+        private const val FULL_TURN_DEGREES = 180F
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,7 +26,7 @@ class TwoOptionDialog(
         setContentView(binding.root)
 
         if (rotate) {
-            binding.clOuter.rotation = 180F
+            binding.clOuter.rotation = FULL_TURN_DEGREES
         }
 
         binding.tvYes.setOnClickListener {
