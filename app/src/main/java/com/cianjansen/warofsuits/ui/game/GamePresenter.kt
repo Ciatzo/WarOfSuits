@@ -44,16 +44,16 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
             view.showScore(yourScore, opponentScore)
 
             if (deck.cards.isEmpty()) {
-                view.showVictoryActivity(yourScore)
+                view.startVictoryActivity(yourScore)
             }
         }
     }
 
     override fun gameForfeited(yours: Boolean) {
         if (yours) {
-            view.showVictoryActivity(yourScore)
+            view.startVictoryActivity(yourScore)
         } else {
-            view.showVictoryActivity(yourScore + deck.cards.size)
+            view.startVictoryActivity(yourScore + deck.cards.size)
         }
     }
 

@@ -26,6 +26,7 @@ class TwoOptionDialog(
         }
 
         binding.tvYes.setOnClickListener {
+            dismiss()
             onPositive()
         }
 

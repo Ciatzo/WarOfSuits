@@ -18,13 +18,15 @@ class GameActivity : AppCompatActivity(), GameContract.View {
     companion object {
         private const val ANIMATION_END_ALPHA = 0f
 
-        private const val ANIMATION_HIGHLIGHT_DURATION = 800L / 4
+        private const val ANIMATION_HIGHLIGHT_DURATION = 800L / 3
 
-        private const val ANIMATION_MOVE_DURATION = 1000L / 4
+        private const val ANIMATION_MOVE_DURATION = 1000L / 2
 
         private const val ANIMATION_RESET_DURATION = 0L
 
         private const val ANIMATION_RESET_FACTOR = 0f
+
+        private const val ANIMATION_RESET_SCALE = 1f
 
         private const val ANIMATION_START_ALPHA = 1f
 
@@ -54,37 +56,61 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             -binding.pcvYours.height.toFloat()
         }
 
-        val yourAnim = binding.pcvYours.animate()
-            .translationY(translationYYours)
-            .translationX(translationX)
-            .alpha(ANIMATION_END_ALPHA)
-        yourAnim.duration = ANIMATION_MOVE_DURATION
-        yourAnim.startDelay = ANIMATION_HIGHLIGHT_DURATION
-
-        yourAnim.withEndAction {
-            val endAnim = binding.pcvYours.animate()
-                .translationY(ANIMATION_RESET_FACTOR)
-                .translationX(ANIMATION_RESET_FACTOR)
-            endAnim.duration = ANIMATION_RESET_DURATION
-            endAnim.startDelay = ANIMATION_RESET_DURATION
-
-            binding.btDrawCardYours.isEnabled = true
-            binding.btDrawCardOpponent.isEnabled = true
+        val winAnim = if (yours) {
+            binding.pcvYours.animate()
+        } else {
+            binding.pcvOpponent.animate()
         }
 
-        val opponentAnim = binding.pcvOpponent.animate()
-            .translationY(translationYOpponent)
-            .translationX(translationX)
-            .alpha(ANIMATION_END_ALPHA)
-        opponentAnim.duration = ANIMATION_MOVE_DURATION
-        opponentAnim.startDelay = ANIMATION_HIGHLIGHT_DURATION
+        winAnim
+            .scaleX(1.3f)
+            .scaleY(1.3f)
+            .duration = ANIMATION_HIGHLIGHT_DURATION
 
-        opponentAnim.withEndAction {
-            val endAnim = binding.pcvOpponent.animate()
-                .translationY(ANIMATION_RESET_FACTOR)
-                .translationX(ANIMATION_RESET_FACTOR)
-            endAnim.duration = ANIMATION_RESET_DURATION
-            endAnim.startDelay = ANIMATION_RESET_DURATION
+        winAnim.withEndAction {
+            val resetScaleAnim = if (yours) {
+                binding.pcvYours.animate()
+            } else {
+                binding.pcvOpponent.animate()
+            }
+
+            resetScaleAnim
+                .scaleX(ANIMATION_RESET_SCALE)
+                .scaleY(ANIMATION_RESET_SCALE)
+                .duration = ANIMATION_HIGHLIGHT_DURATION
+
+            resetScaleAnim.withEndAction {
+                val yoursAnim = binding.pcvYours.animate()
+                    .translationY(translationYYours)
+                    .translationX(translationX)
+                    .alpha(ANIMATION_END_ALPHA)
+                yoursAnim.duration = ANIMATION_MOVE_DURATION
+
+                yoursAnim.withEndAction {
+                    val endAnim = binding.pcvYours.animate()
+                        .translationY(ANIMATION_RESET_FACTOR)
+                        .translationX(ANIMATION_RESET_FACTOR)
+                    endAnim.duration = ANIMATION_RESET_DURATION
+                    endAnim.startDelay = ANIMATION_RESET_DURATION
+
+                    binding.btDrawCardYours.isEnabled = true
+                    binding.btDrawCardOpponent.isEnabled = true
+                }
+
+                val opponentAnim = binding.pcvOpponent.animate()
+                    .translationY(translationYOpponent)
+                    .translationX(translationX)
+                    .alpha(ANIMATION_END_ALPHA)
+                opponentAnim.duration = ANIMATION_MOVE_DURATION
+
+                opponentAnim.withEndAction {
+                    val endAnim = binding.pcvOpponent.animate()
+                        .translationY(ANIMATION_RESET_FACTOR)
+                        .translationX(ANIMATION_RESET_FACTOR)
+                    endAnim.duration = ANIMATION_RESET_DURATION
+                    endAnim.startDelay = ANIMATION_RESET_DURATION
+                }
+            }
         }
     }
 
@@ -136,7 +162,7 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         binding.tvSuitOrderYours.text = suitOrderString
     }
 
-    override fun showVictoryActivity(yourScore: Int) {
+    override fun startVictoryActivity(yourScore: Int) {
         startActivity(VictoryActivity.newIntent(this, yourScore))
         finish()
     }
@@ -146,7 +172,7 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             presenter.gameForfeited(yours)
         }
 
-       TwoOptionDialog(
+        TwoOptionDialog(
             this,
             !yours,
             onPositive,
@@ -155,5 +181,4 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             getString(R.string.game_activity_forfeit_no)
         ).show()
     }
-
 }

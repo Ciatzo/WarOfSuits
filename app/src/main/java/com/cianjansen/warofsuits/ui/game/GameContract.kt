@@ -22,6 +22,6 @@ class GameContract {
 
         fun showSuitOrder(suitOrder: String)
 
-        fun showVictoryActivity(yourScore: Int)
+        fun startVictoryActivity(yourScore: Int)
     }
 }
