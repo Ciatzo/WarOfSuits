@@ -7,6 +7,19 @@ open class PlayingCard(val suit: Suit, val rank: Rank) : Parcelable {
     constructor(parcel: Parcel) :
             this(parcel.readSerializable() as Suit, parcel.readSerializable() as Rank)
 
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    override fun toString(): String {
+        return "$suit$rank"
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeSerializable(suit)
+        parcel.writeSerializable(rank)
+    }
+
     enum class Suit {
         HEARTS {
             override fun toString(): String {
@@ -96,15 +109,6 @@ open class PlayingCard(val suit: Suit, val rank: Rank) : Parcelable {
                 return "A"
             }
                }
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeSerializable(suit)
-        parcel.writeSerializable(rank)
-    }
-
-    override fun describeContents(): Int {
-        return 0
     }
 
     companion object CREATOR : Parcelable.Creator<PlayingCard> {

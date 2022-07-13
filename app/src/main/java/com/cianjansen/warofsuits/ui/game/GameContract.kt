@@ -1,6 +1,6 @@
 package com.cianjansen.warofsuits.ui.game
 
-import com.cianjansen.warofsuits.model.CardPair
+import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.ui.base.BasePresenter
 import com.cianjansen.warofsuits.ui.base.BaseView
 import com.cianjansen.warofsuits.model.PlayingCard
@@ -25,6 +25,6 @@ class GameContract {
 
         fun showSuitOrder(suitOrder: String)
 
-        fun startVictoryActivity(yourScore: Int, turnList: ArrayList<CardPair>)
+        fun startVictoryActivity(yourScore: Int, turnList: ArrayList<TurnSummary>)
     }
 }

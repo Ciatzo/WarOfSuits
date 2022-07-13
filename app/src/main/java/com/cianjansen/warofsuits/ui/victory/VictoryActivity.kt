@@ -2,21 +2,19 @@ package com.cianjansen.warofsuits.ui.victory
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityVictoryBinding
-import com.cianjansen.warofsuits.model.CardPair
-import com.cianjansen.warofsuits.model.PlayingCard
-import java.io.Serializable
+import com.cianjansen.warofsuits.model.TurnSummary
+import com.cianjansen.warofsuits.ui.summary.SummaryActivity
 
 class VictoryActivity : AppCompatActivity(), VictoryContract.View {
     private lateinit var binding: ActivityVictoryBinding
 
     private lateinit var presenter: VictoryContract.Presenter
 
-    private var turnList: ArrayList<CardPair>? = null
+    private var turnList: ArrayList<TurnSummary>? = null
 
     private var yourScore: Int = 0
 
@@ -28,7 +26,7 @@ class VictoryActivity : AppCompatActivity(), VictoryContract.View {
         fun newIntent(
             context: Context,
             yourScore: Int,
-            turnList: ArrayList<CardPair>
+            turnList: ArrayList<TurnSummary>
         ): Intent {
             val intent = Intent(context, VictoryActivity::class.java)
             intent.putExtra(EXTRA_YOUR_SCORE, yourScore)
@@ -47,7 +45,7 @@ class VictoryActivity : AppCompatActivity(), VictoryContract.View {
         setPresenter(VictoryPresenter(this))
 
         yourScore = intent.getIntExtra(EXTRA_YOUR_SCORE, 0)
-        turnList = intent.getParcelableArrayListExtra<CardPair>(EXTRA_TURN_LIST)
+        turnList = intent.getParcelableArrayListExtra<TurnSummary>(EXTRA_TURN_LIST)
         presenter.setWinner(yourScore)
 
         binding.btExitOpponent.setOnClickListener {
@@ -56,6 +54,18 @@ class VictoryActivity : AppCompatActivity(), VictoryContract.View {
 
         binding.btExitYours.setOnClickListener {
             finish()
+        }
+
+        binding.btSummaryYours.setOnClickListener {
+            turnList?.let {
+                startActivity(SummaryActivity.newIntent(this, it))
+            } ?: finish()
+        }
+
+        binding.btSummaryOpponent.setOnClickListener {
+            turnList?.let {
+                startActivity(SummaryActivity.newIntent(this, it))
+            } ?: finish()
         }
     }
 

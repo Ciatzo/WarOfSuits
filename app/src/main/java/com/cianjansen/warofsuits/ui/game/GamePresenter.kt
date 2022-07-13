@@ -1,6 +1,6 @@
 package com.cianjansen.warofsuits.ui.game
 
-import com.cianjansen.warofsuits.model.CardPair
+import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.model.Deck
 import com.cianjansen.warofsuits.model.PlayingCard
 
@@ -16,7 +16,7 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
 
     private var opponentScore = 0
 
-    private var turnList: ArrayList<CardPair> = ArrayList()
+    private var turnList: ArrayList<TurnSummary> = ArrayList()
 
     override fun drawCard(yours: Boolean) {
 
@@ -31,7 +31,9 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
 
             yourCard?.let { yc ->
                 opponentCard?.let { oc ->
-                    if (deck.compareCards(yc, oc) > 0) {
+                    val yourWin = deck.compareCards(yc, oc) > 0
+
+                    if (yourWin) {
                         yourScore += 2
                         view.hideCards(true)
                     } else {
@@ -39,7 +41,7 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
                         view.hideCards(false)
                     }
 
-                    turnList.add(CardPair(yc, oc))
+                    turnList.add(TurnSummary(yc, oc, yourWin))
                     yourCard = null
                     opponentCard = null
                 }

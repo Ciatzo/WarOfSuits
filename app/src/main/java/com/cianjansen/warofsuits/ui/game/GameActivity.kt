@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityGameBinding
-import com.cianjansen.warofsuits.model.CardPair
+import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.model.PlayingCard
 import com.cianjansen.warofsuits.ui.TwoOptionDialog
 import com.cianjansen.warofsuits.ui.victory.VictoryActivity
@@ -19,9 +19,9 @@ class GameActivity : AppCompatActivity(), GameContract.View {
     companion object {
         private const val ANIMATION_END_ALPHA = 0f
 
-        private const val ANIMATION_HIGHLIGHT_DURATION = 800L / 3
+        private const val ANIMATION_HIGHLIGHT_DURATION = 800L / 30
 
-        private const val ANIMATION_MOVE_DURATION = 1000L / 2
+        private const val ANIMATION_MOVE_DURATION = 1000L / 20
 
         private const val ANIMATION_RESET_DURATION = 0L
 
@@ -173,7 +173,7 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         binding.tvSuitOrderYours.text = suitOrderString
     }
 
-    override fun startVictoryActivity(yourScore: Int, turnList: ArrayList<CardPair>) {
+    override fun startVictoryActivity(yourScore: Int, turnList: ArrayList<TurnSummary>) {
         startActivity(VictoryActivity.newIntent(this, yourScore, turnList))
         finish()
     }
