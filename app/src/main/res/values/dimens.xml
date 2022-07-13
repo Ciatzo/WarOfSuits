@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="half_padding">4dp</dimen>
     <dimen name="single_padding">8dp</dimen>
     <dimen name="double_padding">16dp</dimen>
     <dimen name="triple_padding">24dp</dimen>
@@ -10,6 +11,6 @@
     <dimen name="playing_card_height">180dp</dimen>
     <dimen name="text_extra_large">45sp</dimen>
     <dimen name="text_playing_card">24sp</dimen>
-    <dimen name="text_suit_order">18sp</dimen>
+    <dimen name="text_suit_order">14sp</dimen>
     <dimen name="button_small">38dp</dimen>
 </resources>
