@@ -20,41 +20,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
 
         setPresenter(MainPresenter(this))
-        presenter.onViewCreated()
-
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
 
         binding.btStartGame.setOnClickListener {
             presenter.onStartClick()
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     override fun setPresenter(presenter: MainContract.Presenter) {
         this.presenter = presenter
-    }
-
-    override fun showWelcome() {
-        Snackbar.make(binding.root, "Welcome ", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show()
     }
 
     override fun startGame() {

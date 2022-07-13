@@ -7,9 +7,14 @@
     <string name="game_activity_forfeit">Do you want to forfeit the game?</string>
     <string name="game_activity_forfeit_yes">Give Up</string>
     <string name="game_activity_forfeit_no">Keep Playing</string>
+    <string name="game_activity_quit">Do you want to quit the game?</string>
+    <string name="game_activity_quit_title">Quit?</string>
+    <string name="game_activity_quit_yes">Yes</string>
+    <string name="game_activity_quit_no">Keep Playing</string>
     <string name="game_activity_restart">Would you like to restart the game?</string>
     <string name="game_activity_restart_yes">Yes</string>
     <string name="game_activity_restart_no">No</string>
+
     <string name="suit_order">Suit Priority:</string>
     <string name="victory_activity_victory">🎉 You Win! 🎉\nFinal Score:\n</string>
     <string name="victory_activity_defeat">😞 You Lose… 😞\nFinal Score:\n</string>

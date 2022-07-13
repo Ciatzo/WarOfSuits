@@ -3,6 +3,7 @@ package com.cianjansen.warofsuits.ui.summary
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +38,9 @@ class SummaryActivity : AppCompatActivity(), SummaryContract.View {
 
         binding = ActivitySummaryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setPresenter(SummaryPresenter(this))
 
         val turnList = intent.getParcelableArrayListExtra<TurnSummary>(EXTRA_TURN_LIST)

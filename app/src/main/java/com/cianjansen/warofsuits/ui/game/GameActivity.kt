@@ -3,13 +3,15 @@ package com.cianjansen.warofsuits.ui.game
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityGameBinding
-import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.model.PlayingCard
+import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.ui.TwoOptionDialog
 import com.cianjansen.warofsuits.ui.victory.VictoryActivity
+
 
 class GameActivity : AppCompatActivity(), GameContract.View {
     private lateinit var binding: ActivityGameBinding
@@ -113,6 +115,15 @@ class GameActivity : AppCompatActivity(), GameContract.View {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.game_activity_quit_title))
+            .setMessage(getString(R.string.game_activity_quit))
+            .setPositiveButton(getString(R.string.game_activity_quit_yes)) { _, _ -> finish() }
+            .setNegativeButton(getString(R.string.game_activity_quit_no), null)
+            .show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
