@@ -51,6 +51,16 @@ class SummaryActivity : AppCompatActivity(), SummaryContract.View {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun setPresenter(presenter: SummaryContract.Presenter) {
         this.presenter = presenter
     }
