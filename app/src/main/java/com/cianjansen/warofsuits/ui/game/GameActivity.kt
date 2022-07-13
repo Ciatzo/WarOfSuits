@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityGameBinding
+import com.cianjansen.warofsuits.model.CardPair
 import com.cianjansen.warofsuits.model.PlayingCard
 import com.cianjansen.warofsuits.ui.TwoOptionDialog
 import com.cianjansen.warofsuits.ui.victory.VictoryActivity
@@ -172,8 +173,8 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         binding.tvSuitOrderYours.text = suitOrderString
     }
 
-    override fun startVictoryActivity(yourScore: Int) {
-        startActivity(VictoryActivity.newIntent(this, yourScore))
+    override fun startVictoryActivity(yourScore: Int, turnList: ArrayList<CardPair>) {
+        startActivity(VictoryActivity.newIntent(this, yourScore, turnList))
         finish()
     }
 

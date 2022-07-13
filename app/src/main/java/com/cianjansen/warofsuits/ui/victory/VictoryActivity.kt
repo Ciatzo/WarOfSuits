@@ -7,20 +7,32 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityVictoryBinding
+import com.cianjansen.warofsuits.model.CardPair
+import com.cianjansen.warofsuits.model.PlayingCard
+import java.io.Serializable
 
 class VictoryActivity : AppCompatActivity(), VictoryContract.View {
     private lateinit var binding: ActivityVictoryBinding
 
     private lateinit var presenter: VictoryContract.Presenter
 
+    private var turnList: ArrayList<CardPair>? = null
+
     private var yourScore: Int = 0
 
     companion object {
+        private const val EXTRA_TURN_LIST = "EXTRA_TURN_LIST"
+
         private const val EXTRA_YOUR_SCORE = "EXTRA_YOUR_SCORE"
 
-        fun newIntent(context: Context, yourScore: Int): Intent {
+        fun newIntent(
+            context: Context,
+            yourScore: Int,
+            turnList: ArrayList<CardPair>
+        ): Intent {
             val intent = Intent(context, VictoryActivity::class.java)
             intent.putExtra(EXTRA_YOUR_SCORE, yourScore)
+            intent.putParcelableArrayListExtra(EXTRA_TURN_LIST, turnList)
 
             return intent
         }
@@ -35,6 +47,7 @@ class VictoryActivity : AppCompatActivity(), VictoryContract.View {
         setPresenter(VictoryPresenter(this))
 
         yourScore = intent.getIntExtra(EXTRA_YOUR_SCORE, 0)
+        turnList = intent.getParcelableArrayListExtra<CardPair>(EXTRA_TURN_LIST)
         presenter.setWinner(yourScore)
 
         binding.btExitOpponent.setOnClickListener {

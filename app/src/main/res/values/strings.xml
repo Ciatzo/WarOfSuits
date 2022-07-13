@@ -15,4 +15,5 @@
     <string name="victory_activity_defeat">😞 You Lose… 😞\nFinal Score:\n</string>
     <string name="victory_activity_draw">😐 It\'s a Draw 😐\nFinal Score:\n</string>
     <string name="victory_activity_go_home">Go Home</string>
+    <string name="summary_title">Game Summary</string>
 </resources>

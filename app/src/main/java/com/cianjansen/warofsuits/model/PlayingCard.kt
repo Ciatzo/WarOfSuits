@@ -1,6 +1,12 @@
 package com.cianjansen.warofsuits.model
 
-open class PlayingCard(val suit: Suit, val rank: Rank) {
+import android.os.Parcel
+import android.os.Parcelable
+
+open class PlayingCard(val suit: Suit, val rank: Rank) : Parcelable {
+    constructor(parcel: Parcel) :
+            this(parcel.readSerializable() as Suit, parcel.readSerializable() as Rank)
+
     enum class Suit {
         HEARTS {
             override fun toString(): String {
@@ -90,5 +96,24 @@ open class PlayingCard(val suit: Suit, val rank: Rank) {
                 return "A"
             }
                }
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeSerializable(suit)
+        parcel.writeSerializable(rank)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<PlayingCard> {
+        override fun createFromParcel(parcel: Parcel): PlayingCard {
+            return PlayingCard(parcel)
+        }
+
+        override fun newArray(size: Int): Array<PlayingCard?> {
+            return arrayOfNulls(size)
+        }
     }
 }
