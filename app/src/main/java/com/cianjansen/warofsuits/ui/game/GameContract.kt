@@ -8,9 +8,11 @@ class GameContract {
     interface Presenter : BasePresenter {
         fun drawCard(yours: Boolean)
 
-        fun onViewCreated()
+        fun onGameForfeited(yours: Boolean)
 
-        fun gameForfeited(yours: Boolean)
+        fun onGameRestarted()
+
+        fun onViewCreated()
     }
 
     interface View : BaseView<Presenter> {

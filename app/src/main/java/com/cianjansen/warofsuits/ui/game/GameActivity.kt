@@ -134,6 +134,9 @@ class GameActivity : AppCompatActivity(), GameContract.View {
 
         binding.btForfeitYours.setOnClickListener { showForfeitDialog(true) }
         binding.btForfeitOpponent.setOnClickListener { showForfeitDialog(false) }
+
+        binding.btRestartYours.setOnClickListener { showRestartDialog(true) }
+        binding.btRestartOpponent.setOnClickListener { showRestartDialog(false) }
     }
 
     override fun setPresenter(presenter: GameContract.Presenter) {
@@ -144,10 +147,17 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         if (yours) {
             binding.pcvYours.showCard(card)
             binding.pcvYours.alpha = ANIMATION_START_ALPHA
-        } else {
 
+            if (card == null) {
+                binding.btDrawCardYours.isEnabled = true
+            }
+        } else {
             binding.pcvOpponent.showCard(card)
             binding.pcvOpponent.alpha = ANIMATION_START_ALPHA
+
+            if (card == null) {
+                binding.btDrawCardOpponent.isEnabled = true
+            }
         }
     }
 
@@ -169,7 +179,7 @@ class GameActivity : AppCompatActivity(), GameContract.View {
 
     private fun showForfeitDialog(yours: Boolean) {
         val onPositive = {
-            presenter.gameForfeited(yours)
+            presenter.onGameForfeited(yours)
         }
 
         TwoOptionDialog(
@@ -179,6 +189,21 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             getString(R.string.game_activity_forfeit),
             getString(R.string.game_activity_forfeit_yes),
             getString(R.string.game_activity_forfeit_no)
+        ).show()
+    }
+
+    private fun showRestartDialog(yours: Boolean) {
+        val onPositive = {
+            presenter.onGameRestarted()
+        }
+
+        TwoOptionDialog(
+            this,
+            !yours,
+            onPositive,
+            getString(R.string.game_activity_restart),
+            getString(R.string.game_activity_restart_yes),
+            getString(R.string.game_activity_restart_no)
         ).show()
     }
 }

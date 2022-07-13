@@ -49,7 +49,7 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
         }
     }
 
-    override fun gameForfeited(yours: Boolean) {
+    override fun onGameForfeited(yours: Boolean) {
         if (yours) {
             view.startVictoryActivity(yourScore)
         } else {
@@ -57,8 +57,18 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
         }
     }
 
-    override fun onViewCreated() {
+    override fun onGameRestarted() {
+        deck = Deck(true)
+        yourCard = null
+        opponentCard = null
+        yourScore = 0
+        opponentScore = 0
+        showCards()
+        view.showScore(yourScore, opponentScore)
+        view.showSuitOrder(deck.suitOrder.joinToString(separator = ">"))
+    }
 
+    override fun onViewCreated() {
         view.showSuitOrder(deck.suitOrder.joinToString(separator = ">"))
     }
 
