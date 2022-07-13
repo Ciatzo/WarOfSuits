@@ -10,6 +10,9 @@ import com.cianjansen.warofsuits.ui.game.GameActivity
 import com.cianjansen.warofsuits.ui.victory.VictoryActivity
 import com.google.android.material.snackbar.Snackbar
 
+/**
+ * The main activity view. Welcomes players and allows starting a new game
+ */
 class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var binding: ActivityMainBinding
 

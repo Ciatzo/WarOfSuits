@@ -9,14 +9,18 @@ import com.cianjansen.warofsuits.databinding.ActivityVictoryBinding
 import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.ui.summary.SummaryActivity
 
+/**
+ * View class for Victory Activity. Shows visually which player won and the final score
+ */
 class VictoryActivity : AppCompatActivity(), VictoryContract.View {
     private lateinit var binding: ActivityVictoryBinding
 
     private lateinit var presenter: VictoryContract.Presenter
 
+    /*
+    List of all the turns that took place in the game
+     */
     private var turnList: ArrayList<TurnSummary>? = null
-
-    private var yourScore: Int = 0
 
     companion object {
         private const val EXTRA_TURN_LIST = "EXTRA_TURN_LIST"
@@ -44,9 +48,8 @@ class VictoryActivity : AppCompatActivity(), VictoryContract.View {
 
         setPresenter(VictoryPresenter(this))
 
-        yourScore = intent.getIntExtra(EXTRA_YOUR_SCORE, 0)
         turnList = intent.getParcelableArrayListExtra<TurnSummary>(EXTRA_TURN_LIST)
-        presenter.setWinner(yourScore)
+        presenter.setWinner(intent.getIntExtra(EXTRA_YOUR_SCORE, 0))
 
         binding.btExitOpponent.setOnClickListener {
             finish()
@@ -73,7 +76,14 @@ class VictoryActivity : AppCompatActivity(), VictoryContract.View {
         this.presenter = presenter
     }
 
-    override fun showResult(yourScore: Int, opponentScore: Int, result:GameResult) {
+    /**
+     * Shows which player won the game using the @GameResult enum class, and the scores
+     * gained by the different players
+     * @param yourScore the score achieved by the "you" player
+     * @param opponentScore the score achieved by the "opponent" player
+     * @param result the GameResult of this game
+     */
+    override fun showResult(yourScore: Int, opponentScore: Int, result: GameResult) {
         when(result) {
             GameResult.YOU_WIN -> {
                 binding.clVictoryYours.setBackgroundColor(getColor(R.color.green_victory))
@@ -102,6 +112,10 @@ class VictoryActivity : AppCompatActivity(), VictoryContract.View {
         }
     }
 
+    /**
+     * Enum class for the different results a game of War of Suits can have, contains YOU_WIN,
+     * OPPONENT_WIN and DRAW
+     */
     enum class GameResult {
         YOU_WIN,
         OPPONENT_WIN,

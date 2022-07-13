@@ -12,7 +12,9 @@ import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.ui.TwoOptionDialog
 import com.cianjansen.warofsuits.ui.victory.VictoryActivity
 
-
+/**
+ * The view class for the game, handles user input and card animations
+ */
 class GameActivity : AppCompatActivity(), GameContract.View {
     private lateinit var binding: ActivityGameBinding
 
@@ -42,6 +44,9 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         }
     }
 
+    /**
+     * Shows which player won by highlighting their card with an expanding "pop-up" animation
+     */
     override fun showWinner(yours: Boolean) {
         val winAnim = if (yours) {
             binding.pcvYours.animate()
@@ -54,6 +59,7 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             .scaleY(ANIMATION_GROW_SCALE)
             .duration = ANIMATION_HIGHLIGHT_DURATION
 
+        // withEndAction used for non-blocking delay between animation steps
         winAnim.withEndAction {
             val resetScaleAnim = if (yours) {
                 binding.pcvYours.animate()
@@ -72,6 +78,9 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         }
     }
 
+    /**
+     * Prevents accidental exits by presenting the user with a dialog
+     */
     override fun onBackPressed() {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.game_activity_quit_title))
@@ -110,6 +119,11 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         this.presenter = presenter
     }
 
+    /**
+     * Shows the playing card drawn by the player on screen
+     * @param card the playing card to be shown
+     * @param yours whether the card was drawn by the "you" player or the "opponent" player
+     */
     override fun showCard(card: PlayingCard?, yours: Boolean) {
         if (yours) {
             binding.pcvYours.showCard(card)
@@ -128,29 +142,60 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         }
     }
 
+    /**
+     * Shows the current score for both players
+     * @param yourScore the score of the "you" player
+     * @param opponentScore the score of the "opponent" player
+     */
     override fun showScore(yourScore: Int, opponentScore: Int) {
         binding.tvDiscardYours.text = yourScore.toString()
         binding.tvDiscardOpponent.text = opponentScore.toString()
     }
 
+    /**
+     * Shows the current "suit order" being used in the game. The suit order is used to determine
+     * which card wins in a case of two cards with the same rank. The suit order is a parameter of
+     * the Deck being used, and is determined at the start of each game randomly
+     */
     override fun showSuitOrder(suitOrder: String) {
         val suitOrderString = getString(R.string.suit_order) + "\n" + suitOrder
         binding.tvSuitOrderOpponent.text = suitOrderString
         binding.tvSuitOrderYours.text = suitOrderString
     }
 
+    /**
+     * Starts the victory activity to highlight winning player and final score
+     * @param yourScore the score of the "you" player. OpponentScore not provided as the size of
+     * the deck is known, and OpponentScore will be said size - yourScore. In case of a forfeit by
+     * a player, the cards in both draw piles are put in the other players discard pile
+     * @param turnList the list of all turns that happened over the course of the game, used to
+     * provide the players with a summary
+     */
     override fun startVictoryActivity(yourScore: Int, turnList: ArrayList<TurnSummary>) {
         startActivity(VictoryActivity.newIntent(this, yourScore, turnList))
         finish()
     }
 
+    /**
+     * Function for playing the animation that hides the cards. Cards are animated flying towards
+     * the discard pile of the player that won the turn
+     * @param yours whether the "you" player won the turn. False in case the "opponent" player won
+     */
     private fun hideCards(yours: Boolean) {
+        /*
+         Both cards follow the same X translation, from the center towards the discard pile of the
+          player that won the turn
+         */
         val translationX = if (yours) {
             binding.pcvYours.width.toFloat()
         } else {
             -binding.pcvYours.width.toFloat()
         }
 
+        /*
+        The Y translation is different for the two cards. The card of the losing player has to fly
+        further to reach the winning player's discard pile
+         */
         val yTranslationYourCard = if (yours) {
             binding.pcvYours.height.toFloat()
         } else {
@@ -169,6 +214,7 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             .alpha(ANIMATION_END_ALPHA)
         yourCardAnimation.duration = ANIMATION_MOVE_DURATION
 
+        // Cards are animated back to their starting position invisibly after animation ends
         yourCardAnimation.withEndAction {
             val endAnim = binding.pcvYours.animate()
                 .translationY(ANIMATION_RESET_FACTOR)
@@ -176,6 +222,10 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             endAnim.duration = ANIMATION_RESET_DURATION
             endAnim.startDelay = ANIMATION_RESET_DURATION
 
+            /*
+            Card draw buttons get re-enabled at the end of the card animation, preventing players
+             from drawing while a turn is still in progress
+             */
             binding.btDrawCardYours.isEnabled = true
             binding.btDrawCardOpponent.isEnabled = true
         }
@@ -195,6 +245,11 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         }
     }
 
+    /**
+     * Show a dialog confirming whether the player wants to forfeit the game
+     * @param yours used to determine which player is trying to forfeit. Used both to determine
+     * which player wins, and whether to flip the dialog for the "opponent" player
+     */
     private fun showForfeitDialog(yours: Boolean) {
         val onPositive = {
             presenter.onGameForfeited(yours)
@@ -210,6 +265,11 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         ).show()
     }
 
+    /**
+     * Show a dialog confirming whether the player wants to restart the game
+     * @param yours used to determine which player is trying to restart. Used to determine
+     * whether to flip the dialog for the "opponent" player
+     */
     private fun showRestartDialog(yours: Boolean) {
         val onPositive = {
             presenter.onGameRestarted()

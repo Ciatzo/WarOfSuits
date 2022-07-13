@@ -3,6 +3,12 @@ package com.cianjansen.warofsuits.model
 import android.os.Parcel
 import android.os.Parcelable
 
+/**
+ * An object to hold a summary of a turn played in the card game
+ * @param first the PlayingCard played by the "you" player
+ * @param second the PlayingCard played by the "opponent" player
+ * @param yours boolean describing whether the "you" player won the turn
+ */
 class TurnSummary(val first: PlayingCard?, val second: PlayingCard?, val yours: Boolean) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readParcelable(PlayingCard::class.java.classLoader),

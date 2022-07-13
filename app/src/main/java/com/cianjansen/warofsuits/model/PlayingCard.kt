@@ -3,7 +3,12 @@ package com.cianjansen.warofsuits.model
 import android.os.Parcel
 import android.os.Parcelable
 
-open class PlayingCard(val suit: Suit, val rank: Rank) : Parcelable {
+/**
+ * A playing card from a standard poker deck
+ * @param suit the suit of this card
+ * @param rank the rank of this card
+ */
+class PlayingCard(val suit: Suit, val rank: Rank) : Parcelable {
     constructor(parcel: Parcel) :
             this(parcel.readSerializable() as Suit, parcel.readSerializable() as Rank)
 
@@ -20,6 +25,9 @@ open class PlayingCard(val suit: Suit, val rank: Rank) : Parcelable {
         parcel.writeSerializable(rank)
     }
 
+    /**
+     * Enumerator class for card suits, contains Hearts, Diamonds, Spades and Clubs
+     */
     enum class Suit {
         HEARTS {
             override fun toString(): String {
@@ -43,6 +51,9 @@ open class PlayingCard(val suit: Suit, val rank: Rank) : Parcelable {
         }
     }
 
+    /**
+     * Enumerator class for card ranks, contains 2-10 and picture cards (Ace ranking highest)
+     */
     enum class Rank {
         TWO {
             override fun toString(): String {

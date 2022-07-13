@@ -1,14 +1,16 @@
 package com.cianjansen.warofsuits.model
 
+/**
+ * A deck of cards
+ * @param shuffled whether the list of cards should be shuffled or in order
+ * @param randomSuitOrder whether the priority of different suits should be random or ordered
+ */
 class Deck(shuffled: Boolean, randomSuitOrder: Boolean = true) {
 
-    var cards: MutableList<PlayingCard> = ArrayList(DECK_CAPACITY)
+    var cards: MutableList<PlayingCard> = ArrayList()
 
+    // The priority order of the different suits to use as a tie-breaker. Determined randomly
     val suitOrder: List<PlayingCard.Suit>
-
-    companion object {
-        private const val DECK_CAPACITY = 52
-    }
 
     init {
         for (suit in PlayingCard.Suit.values()) {
@@ -21,6 +23,7 @@ class Deck(shuffled: Boolean, randomSuitOrder: Boolean = true) {
             cards.shuffle()
         }
 
+        // Non-random suitOrder used for testing
         suitOrder = if (randomSuitOrder) {
             PlayingCard.Suit.values().toList().shuffled()
         } else {
@@ -28,6 +31,13 @@ class Deck(shuffled: Boolean, randomSuitOrder: Boolean = true) {
         }
     }
 
+    /**
+     * Used to compare cards to see which is highest. Compares on rank first. In case of equal rank
+     * compares on pre-determined suitOrder for this deck
+     * @param card1 the card of the "you" player
+     * @param card2 the card of the "opponent" player
+     * @return 1 if card1 is higher, -1 if card2 is higher
+     */
     fun compareCards(card1: PlayingCard, card2: PlayingCard): Int {
         return if (card1.rank > card2.rank) {
             1

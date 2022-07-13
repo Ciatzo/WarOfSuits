@@ -12,7 +12,9 @@ import com.cianjansen.warofsuits.databinding.ActivitySummaryBinding
 import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.ui.TurnView
 
-
+/**
+ * Provides a summary of all the turns that happened in the previous game
+ */
 class SummaryActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySummaryBinding
 
@@ -57,32 +59,39 @@ class SummaryActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * RecyclerView adapter for showing a summary of all turns that took place during the game
+     */
     class TurnAdapter(private val turnList: ArrayList<TurnSummary>) :
-        RecyclerView.Adapter<TurnAdapter.ViewHolder>() {
+        RecyclerView.Adapter<TurnAdapter.TurnViewHolder>() {
         override fun getItemCount(): Int {
             return turnList.size
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
+        /**
+         * Creates the viewHolder for TurnSummary items with the custom TurnView class
+         */
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TurnViewHolder {
             val itemView = TurnView(parent.context)
             itemView.layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
 
-            return ViewHolder(itemView)
+            return TurnViewHolder(itemView)
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.getCustomView().showTurn(turnList[position], position + 1)
+        /**
+         * Binds the TurnSummary item to the TurnView. ArrayList index + 1 used for showing turn
+         * number
+         */
+        override fun onBindViewHolder(holder: TurnViewHolder, position: Int) {
+            holder.v.showTurn(turnList[position], position + 1)
         }
 
-        inner class ViewHolder(private val v: TurnView) : RecyclerView.ViewHolder(v) {
-
-            fun getCustomView(): TurnView {
-                return v
-            }
-        }
+        /**
+         * TurnViewHolder class for binding TurnSummary items
+         */
+        inner class TurnViewHolder(val v: TurnView) : RecyclerView.ViewHolder(v)
     }
 }

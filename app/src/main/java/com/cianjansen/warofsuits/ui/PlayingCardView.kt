@@ -8,6 +8,9 @@ import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.IPlayingCardBinding
 import com.cianjansen.warofsuits.model.PlayingCard
 
+/**
+ * Custom view for showing PlayingCard objects
+ */
 class PlayingCardView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -19,6 +22,10 @@ class PlayingCardView @JvmOverloads constructor(
         init(attrs)
     }
 
+    /**
+     * Shows a playing card
+     * @param playingCard the playing card to be shown. If null, the card is hidden
+     */
     fun showCard(playingCard: PlayingCard?) {
         playingCard?.let {
             val cardText = it.rank.toString() +
@@ -38,6 +45,10 @@ class PlayingCardView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Initializes the PlayingCardView based on the styleable attributes provided in the xml
+     * layout file. If either of the attributes (suit and rank) is missing, the card is hidden
+     */
     private fun init(attrs: AttributeSet?) {
         binding = IPlayingCardBinding.inflate(LayoutInflater.from(context), this)
         val ta = context.obtainStyledAttributes(attrs, R.styleable.PlayingCardView)
