@@ -14,15 +14,15 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
      */
     private var deck: Deck = Deck(true)
 
-    private var yourCard: PlayingCard? = null
-
-    private var yourScore = 0
-
     private var opponentCard: PlayingCard? = null
 
     private var opponentScore = 0
 
     private var turnList: ArrayList<TurnSummary> = ArrayList()
+
+    private var yourCard: PlayingCard? = null
+
+    private var yourScore = 0
 
     /**
      * Draws a new card from the draw pile for the relevant player
@@ -32,10 +32,6 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
      * game is pre-determined the moment the deck is shuffled (as described in the tech test spec)
      */
     override fun drawCard(yours: Boolean) {
-        if (deck.cards.isEmpty()) {
-            view.startVictoryActivity(yourScore, turnList)
-        }
-
         if (yours && yourCard == null) {
             yourCard = deck.cards.removeFirst()
         } else if (!yours && opponentCard == null) {
@@ -59,7 +55,8 @@ class GamePresenter(private var view: GameContract.View) : GameContract.Presente
 
                 /*
                 When a turn is over (both players have drawn a card), the turn gets added to the
-                turnList to be used for the post-game summary
+                turnList to be used for the post-game summary. Cards are then set to null for next
+                turn
                  */
                 turnList.add(TurnSummary(yc, oc, yourWin))
                 yourCard = null
