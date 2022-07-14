@@ -1,4 +1,4 @@
-package com.cianjansen.warofsuits.ui
+package com.cianjansen.warofsuits.ui.views
 
 import android.app.Dialog
 import android.content.Context

@@ -27,6 +27,12 @@ class VictoryActivity : AppCompatActivity(), VictoryContract.View {
 
         private const val EXTRA_YOUR_SCORE = "EXTRA_YOUR_SCORE"
 
+        /**
+         * Creates intent to VictoryActivity
+         * @param turnList the list of turns that took place during the game, to be passed on to
+         * the summaryActivity
+         * @param yourScore the score obtained by the "you" player
+         */
         fun newIntent(
             context: Context,
             yourScore: Int,

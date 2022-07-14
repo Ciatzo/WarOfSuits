@@ -9,7 +9,7 @@ import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityGameBinding
 import com.cianjansen.warofsuits.model.PlayingCard
 import com.cianjansen.warofsuits.model.TurnSummary
-import com.cianjansen.warofsuits.ui.TwoOptionDialog
+import com.cianjansen.warofsuits.ui.views.TwoOptionDialog
 import com.cianjansen.warofsuits.ui.victory.VictoryActivity
 
 /**
@@ -20,14 +20,17 @@ class GameActivity : AppCompatActivity(), GameContract.View {
 
     private lateinit var presenter: GameContract.Presenter
 
+    /**
+     * Defines constants to be used for animation and a newIntent function
+     */
     companion object {
         private const val ANIMATION_END_ALPHA = 0f
 
-        private const val ANIMATION_HIGHLIGHT_DURATION = 800L / 30
+        private const val ANIMATION_HIGHLIGHT_DURATION = 800L / 3
 
         private const val ANIMATION_GROW_SCALE = 1.3f
 
-        private const val ANIMATION_MOVE_DURATION = 1000L / 20
+        private const val ANIMATION_MOVE_DURATION = 1000L / 2
 
         private const val ANIMATION_RESET_DURATION = 0L
 
@@ -39,6 +42,10 @@ class GameActivity : AppCompatActivity(), GameContract.View {
 
         private const val ANIMATION_X_MOVE_FACTOR = 2
 
+        /**
+         * Creates intent to this activity
+         * @return intent to gameActivity
+         */
         fun newIntent(context: Context): Intent {
             return Intent(context, GameActivity::class.java)
         }

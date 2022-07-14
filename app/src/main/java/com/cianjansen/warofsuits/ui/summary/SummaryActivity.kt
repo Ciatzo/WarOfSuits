@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cianjansen.warofsuits.databinding.ActivitySummaryBinding
 import com.cianjansen.warofsuits.model.TurnSummary
-import com.cianjansen.warofsuits.ui.TurnView
+import com.cianjansen.warofsuits.ui.views.TurnView
 
 /**
  * Provides a summary of all the turns that happened in the previous game
@@ -21,6 +21,11 @@ class SummaryActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_TURN_LIST = "EXTRA_TURN_LIST"
 
+        /**
+         * Creates intent to SummaryActivity
+         * @param turnList the list of turns that took place during the game, to be shown in this
+         * summary activity
+         */
         fun newIntent(
             context: Context,
             turnList: ArrayList<TurnSummary>
