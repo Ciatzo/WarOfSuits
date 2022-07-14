@@ -14,6 +14,7 @@
     <string name="game_activity_restart">Would you like to restart the game?</string>
     <string name="game_activity_restart_yes">Yes</string>
     <string name="game_activity_restart_no">No</string>
+    <string name="game_activity_banner">Start the game by drawing a card!</string>
 
     <string name="suit_order">Suit Priority:</string>
     <string name="victory_activity_victory">🎉 You Win! 🎉\nFinal Score:\n</string>

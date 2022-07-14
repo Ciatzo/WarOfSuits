@@ -1,16 +1,21 @@
 package com.cianjansen.warofsuits.ui.game
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityGameBinding
 import com.cianjansen.warofsuits.model.PlayingCard
 import com.cianjansen.warofsuits.model.TurnSummary
-import com.cianjansen.warofsuits.ui.views.TwoOptionDialog
 import com.cianjansen.warofsuits.ui.victory.VictoryActivity
+import com.cianjansen.warofsuits.ui.views.TwoOptionDialog
+
 
 /**
  * The view class for the game, handles user input and card animations
@@ -24,13 +29,19 @@ class GameActivity : AppCompatActivity(), GameContract.View {
      * Defines constants to be used for animation and a newIntent function
      */
     companion object {
+        private const val ANIMATION_BOUNCE_DELAY = 3000L
+
+        private const val ANIMATION_BOUNCE_GROW_SCALE = 1.1f
+
+        private const val ANIMATION_BOUNCE_TIME = 1500L
+
+        private const val ANIMATION_CARD_GROW_SCALE = 1.3f
+
         private const val ANIMATION_END_ALPHA = 0f
 
-        private const val ANIMATION_HIGHLIGHT_DURATION = 800L / 3
+        private const val ANIMATION_HIGHLIGHT_DURATION = 250L
 
-        private const val ANIMATION_GROW_SCALE = 1.3f
-
-        private const val ANIMATION_MOVE_DURATION = 1000L / 2
+        private const val ANIMATION_MOVE_DURATION = 500L
 
         private const val ANIMATION_RESET_DURATION = 0L
 
@@ -62,8 +73,8 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         }
 
         winAnim
-            .scaleX(ANIMATION_GROW_SCALE)
-            .scaleY(ANIMATION_GROW_SCALE)
+            .scaleX(ANIMATION_CARD_GROW_SCALE)
+            .scaleY(ANIMATION_CARD_GROW_SCALE)
             .duration = ANIMATION_HIGHLIGHT_DURATION
 
         // withEndAction used for non-blocking delay between animation steps
@@ -108,11 +119,13 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         binding.btDrawCardYours.setOnClickListener {
             presenter.drawCard(true)
             binding.btDrawCardYours.isEnabled = false
+            hideBanner()
         }
 
         binding.btDrawCardOpponent.setOnClickListener {
             presenter.drawCard(false)
             binding.btDrawCardOpponent.isEnabled = false
+            hideBanner()
         }
 
         binding.btForfeitYours.setOnClickListener { showForfeitDialog(true) }
@@ -120,6 +133,8 @@ class GameActivity : AppCompatActivity(), GameContract.View {
 
         binding.btRestartYours.setOnClickListener { showRestartDialog(true) }
         binding.btRestartOpponent.setOnClickListener { showRestartDialog(false) }
+
+        showBounceAnimation(binding.tvTutorialBanner)
     }
 
     override fun setPresenter(presenter: GameContract.Presenter) {
@@ -182,6 +197,24 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         startActivity(VictoryActivity.newIntent(this, yourScore, turnList))
         finish()
     }
+
+    private fun hideBanner() {
+        binding.tvTutorialBanner
+            .animate()
+            .alpha(ANIMATION_END_ALPHA)
+            .duration = ANIMATION_MOVE_DURATION
+
+        val bannerAnimation = binding.ivBanner
+            .animate()
+            .alpha(ANIMATION_END_ALPHA)
+        bannerAnimation.duration = ANIMATION_MOVE_DURATION
+
+        bannerAnimation.withEndAction {
+            binding.ivBanner.visibility = View.GONE
+            binding.tvTutorialBanner.visibility = View.GONE
+        }
+    }
+
 
     /**
      * Function for playing the animation that hides the cards. Cards are animated flying towards
@@ -250,6 +283,32 @@ class GameActivity : AppCompatActivity(), GameContract.View {
             endAnim.duration = ANIMATION_RESET_DURATION
             endAnim.startDelay = ANIMATION_RESET_DURATION
         }
+    }
+
+    private fun showBounceAnimation(view: View) {
+        val xObjectAnimator = ObjectAnimator.ofFloat(
+            view,
+            "scaleX",
+            ANIMATION_RESET_SCALE,
+            ANIMATION_BOUNCE_GROW_SCALE,
+            ANIMATION_RESET_SCALE
+        )
+        xObjectAnimator.repeatCount = Animation.INFINITE
+
+        val yObjectAnimator = ObjectAnimator.ofFloat(
+            view,
+            "scaleY",
+            ANIMATION_RESET_SCALE,
+            ANIMATION_BOUNCE_GROW_SCALE,
+            ANIMATION_RESET_SCALE
+        )
+        yObjectAnimator.repeatCount = Animation.INFINITE
+
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(xObjectAnimator, yObjectAnimator)
+        animatorSet.duration = ANIMATION_BOUNCE_TIME
+        animatorSet.startDelay = ANIMATION_BOUNCE_DELAY
+        animatorSet.start()
     }
 
     /**
