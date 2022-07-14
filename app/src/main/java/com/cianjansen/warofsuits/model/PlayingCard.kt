@@ -9,11 +9,21 @@ import android.os.Parcelable
  * @param rank the rank of this card
  */
 class PlayingCard(val suit: Suit, val rank: Rank) : Parcelable {
-    constructor(parcel: Parcel) :
-            this(parcel.readSerializable() as Suit, parcel.readSerializable() as Rank)
+    constructor(parcel: Parcel) : this(
+        parcel.readSerializable() as Suit,
+        parcel.readSerializable() as Rank
+    )
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is PlayingCard && other.suit == this.suit && other.rank == this.rank) {
+            return true
+        }
+
+        return super.equals(other)
     }
 
     override fun toString(): String {
@@ -33,7 +43,7 @@ class PlayingCard(val suit: Suit, val rank: Rank) : Parcelable {
             override fun toString(): String {
                 return "♥"
             }
-               },
+        },
         DIAMONDS {
             override fun toString(): String {
                 return "♦"
@@ -59,69 +69,72 @@ class PlayingCard(val suit: Suit, val rank: Rank) : Parcelable {
             override fun toString(): String {
                 return "2"
             }
-               },
+        },
         THREE {
             override fun toString(): String {
                 return "3"
             }
-               },
+        },
         FOUR {
             override fun toString(): String {
                 return "4"
             }
-               },
+        },
         FIVE {
             override fun toString(): String {
                 return "5"
             }
-               },
+        },
         SIX {
             override fun toString(): String {
                 return "6"
             }
-               },
+        },
         SEVEN {
             override fun toString(): String {
                 return "7"
             }
-               },
+        },
         EIGHT {
             override fun toString(): String {
                 return "8"
             }
-               },
+        },
         NINE {
             override fun toString(): String {
                 return "9"
             }
-               },
+        },
         TEN {
             override fun toString(): String {
                 return "10"
             }
-               },
+        },
         JACK {
             override fun toString(): String {
                 return "J"
             }
-               },
+        },
         QUEEN {
             override fun toString(): String {
                 return "Q"
             }
-               },
+        },
         KING {
             override fun toString(): String {
                 return "K"
             }
-               },
+        },
         ACE {
             override fun toString(): String {
                 return "A"
             }
-               }
+        }
     }
 
+    /**
+     * Parcelable creator for PlayingCard class
+     */
     companion object CREATOR : Parcelable.Creator<PlayingCard> {
         override fun createFromParcel(parcel: Parcel): PlayingCard {
             return PlayingCard(parcel)

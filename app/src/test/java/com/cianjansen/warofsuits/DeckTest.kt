@@ -5,6 +5,9 @@ import com.cianjansen.warofsuits.model.PlayingCard
 import org.junit.Test
 import org.junit.Assert.*
 
+/**
+ * Contains unit tests for the Deck class
+ */
 class DeckTest {
 
     @Test
@@ -44,7 +47,7 @@ class DeckTest {
         assertEquals(deck.compareCards(
             PlayingCard(PlayingCard.Suit.HEARTS, PlayingCard.Rank.FIVE),
             PlayingCard(PlayingCard.Suit.CLUBS, PlayingCard.Rank.KING)
-        ), 1)
+        ), -1)
     }
 
     @Test
@@ -61,4 +64,6 @@ class DeckTest {
             PlayingCard(PlayingCard.Suit.DIAMONDS, PlayingCard.Rank.FIVE)
         ), -1)
     }
+
+
 }
