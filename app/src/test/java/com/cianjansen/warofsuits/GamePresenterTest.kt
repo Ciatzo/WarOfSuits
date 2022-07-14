@@ -30,7 +30,7 @@ class GamePresenterTest {
      * Tests that both players drawing a card leads to the score being updated
      */
     @Test
-    fun showScoreTest() {
+    fun afterTurnTest() {
         mockGameActivity = mock(GameActivity::class.java)
         val presenter = GamePresenter(mockGameActivity)
 
@@ -38,6 +38,7 @@ class GamePresenterTest {
         presenter.drawCard(false)
 
         verify(mockGameActivity, times(1)).showScore(any(), any())
+        verify(mockGameActivity, times(1)).showWinner(any())
     }
 
     /**
