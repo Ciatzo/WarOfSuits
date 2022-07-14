@@ -2,6 +2,7 @@ package com.cianjansen.warofsuits.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.util.*
 
 /**
  * A playing card from a standard poker deck
@@ -24,6 +25,10 @@ class PlayingCard(val suit: Suit, val rank: Rank) : Parcelable {
         }
 
         return super.equals(other)
+    }
+
+    override fun hashCode(): Int {
+        return Objects.hash(suit, rank)
     }
 
     override fun toString(): String {
