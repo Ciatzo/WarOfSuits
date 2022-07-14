@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WarOfSuits</string>
-    <string name="action_settings">Settings</string>
     <string name="main_start_game">Start Game</string>
+    <string name="main_activity_intro">WarOfSuits game implementation for Wallapop Android Engineer application, by Cian Jansen.</string>
     <string name="game_activity_zero">0</string>
     <string name="game_activity_draw_card">Draw Card</string>
     <string name="game_activity_forfeit">Do you want to forfeit the game?</string>
