@@ -62,38 +62,14 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         }
     }
 
-    /**
-     * Shows which player won by highlighting their card with an expanding "pop-up" animation
-     */
-    override fun showWinner(yours: Boolean) {
-        val winAnim = if (yours) {
-            binding.pcvYours.animate()
-        } else {
-            binding.pcvOpponent.animate()
-        }
+    override fun hideOpponentCard() {
+        binding.btDrawCardOpponent.isEnabled = true
+        binding.pcvOpponent.showNoCard()
+    }
 
-        winAnim
-            .scaleX(ANIMATION_CARD_GROW_SCALE)
-            .scaleY(ANIMATION_CARD_GROW_SCALE)
-            .duration = ANIMATION_HIGHLIGHT_DURATION
-
-        // withEndAction used for non-blocking delay between animation steps
-        winAnim.withEndAction {
-            val resetScaleAnim = if (yours) {
-                binding.pcvYours.animate()
-            } else {
-                binding.pcvOpponent.animate()
-            }
-
-            resetScaleAnim
-                .scaleX(ANIMATION_RESET_SCALE)
-                .scaleY(ANIMATION_RESET_SCALE)
-                .duration = ANIMATION_HIGHLIGHT_DURATION
-
-            resetScaleAnim.withEndAction {
-                hideCards(yours)
-            }
-        }
+    override fun hideYourCard() {
+        binding.btDrawCardYours.isEnabled = true
+        binding.pcvYours.showNoCard()
     }
 
     /**
@@ -142,26 +118,12 @@ class GameActivity : AppCompatActivity(), GameContract.View {
     }
 
     /**
-     * Shows the playing card drawn by the player on screen
+     * Shows the playing card drawn by the "opponent" player on screen
      * @param card the playing card to be shown
-     * @param yours whether the card was drawn by the "you" player or the "opponent" player
      */
-    override fun showCard(card: PlayingCard?, yours: Boolean) {
-        if (yours) {
-            binding.pcvYours.showCard(card)
-            binding.pcvYours.alpha = ANIMATION_START_ALPHA
-
-            if (card == null) {
-                binding.btDrawCardYours.isEnabled = true
-            }
-        } else {
-            binding.pcvOpponent.showCard(card)
-            binding.pcvOpponent.alpha = ANIMATION_START_ALPHA
-
-            if (card == null) {
-                binding.btDrawCardOpponent.isEnabled = true
-            }
-        }
+    override fun showOpponentCard(card: PlayingCard) {
+        binding.pcvOpponent.showCard(card)
+        binding.pcvOpponent.alpha = ANIMATION_START_ALPHA
     }
 
     /**
@@ -183,6 +145,49 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         val suitOrderString = getString(R.string.suit_order) + "\n" + suitOrder
         binding.tvSuitOrderOpponent.text = suitOrderString
         binding.tvSuitOrderYours.text = suitOrderString
+    }
+
+    /**
+     * Shows which player won by highlighting their card with an expanding "pop-up" animation
+     */
+    override fun showWinner(yours: Boolean) {
+        val winAnim = if (yours) {
+            binding.pcvYours.animate()
+        } else {
+            binding.pcvOpponent.animate()
+        }
+
+        winAnim
+            .scaleX(ANIMATION_CARD_GROW_SCALE)
+            .scaleY(ANIMATION_CARD_GROW_SCALE)
+            .duration = ANIMATION_HIGHLIGHT_DURATION
+
+        // withEndAction used for non-blocking delay between animation steps
+        winAnim.withEndAction {
+            val resetScaleAnim = if (yours) {
+                binding.pcvYours.animate()
+            } else {
+                binding.pcvOpponent.animate()
+            }
+
+            resetScaleAnim
+                .scaleX(ANIMATION_RESET_SCALE)
+                .scaleY(ANIMATION_RESET_SCALE)
+                .duration = ANIMATION_HIGHLIGHT_DURATION
+
+            resetScaleAnim.withEndAction {
+                hideCards(yours)
+            }
+        }
+    }
+
+    /**
+     * Shows the playing card drawn by the "you" player on screen
+     * @param card the playing card to be shown
+     */
+    override fun showYourCard(card: PlayingCard) {
+        binding.pcvYours.showCard(card)
+        binding.pcvYours.alpha = ANIMATION_START_ALPHA
     }
 
     /**

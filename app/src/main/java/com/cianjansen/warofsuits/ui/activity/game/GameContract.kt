@@ -17,13 +17,19 @@ interface GameContract {
     }
 
     interface View : BaseView<Presenter> {
-        fun showWinner(yours: Boolean)
+        fun hideOpponentCard()
 
-        fun showCard(card: PlayingCard?, yours: Boolean)
+        fun hideYourCard()
+
+        fun showOpponentCard(card: PlayingCard)
 
         fun showScore(yourScore: Int, opponentScore: Int)
 
         fun showSuitOrder(suitOrder: String)
+
+        fun showWinner(yours: Boolean)
+
+        fun showYourCard(card: PlayingCard)
 
         fun startVictoryActivity(yourScore: Int, turnList: ArrayList<TurnSummary>)
     }

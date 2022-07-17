@@ -26,23 +26,27 @@ class PlayingCardView @JvmOverloads constructor(
      * Shows a playing card
      * @param playingCard the playing card to be shown. If null, the card is hidden
      */
-    fun showCard(playingCard: PlayingCard?) {
-        playingCard?.let {
-            val cardText = it.rank.toString() +
-                    "\n" +
-                    it.suit.toString()
+    fun showCard(playingCard: PlayingCard) {
+        val cardText = playingCard.rank.toString() +
+                "\n" +
+                playingCard.suit.toString()
 
-            binding.tvTopLeft.text = cardText
-            binding.tvBottomRight.text = cardText
+        binding.tvTopLeft.text = cardText
+        binding.tvBottomRight.text = cardText
 
-            binding.ivBackground.visibility = VISIBLE
-            binding.tvTopLeft.visibility = VISIBLE
-            binding.tvBottomRight.visibility = VISIBLE
-        } ?: run {
-            binding.ivBackground.visibility = GONE
-            binding.tvTopLeft.visibility = GONE
-            binding.tvBottomRight.visibility = GONE
-        }
+        binding.ivBackground.visibility = VISIBLE
+        binding.tvTopLeft.visibility = VISIBLE
+        binding.tvBottomRight.visibility = VISIBLE
+
+    }
+
+    /**
+     * Hides the PlayingCardView
+     */
+    fun showNoCard() {
+        binding.ivBackground.visibility = GONE
+        binding.tvTopLeft.visibility = GONE
+        binding.tvBottomRight.visibility = GONE
     }
 
     /**

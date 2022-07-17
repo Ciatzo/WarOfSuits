@@ -111,7 +111,16 @@ class GamePresenter(private val view: GameContract.View) : GameContract.Presente
      * Shows the cards of both players
      */
     private fun showCards() {
-        view.showCard(yourCard, true)
-        view.showCard(opponentCard, false)
+        yourCard?.let {
+            view.showYourCard(it)
+        } ?: run {
+            view.hideYourCard()
+        }
+
+        opponentCard?.let {
+            view.showOpponentCard(it)
+        } ?: run {
+            view.hideOpponentCard()
+        }
     }
 }
