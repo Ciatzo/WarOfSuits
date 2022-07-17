@@ -42,7 +42,9 @@ class PlayingCardView @JvmOverloads constructor(
 
     /**
      * Shows an animation on this PlayingCardView that moves the card to the discardPile of
-     * the winning player.
+     * the winning player. The animation depends on which player won the turn (discard pile on right
+     * in case of "you" player, on left for "opponent", and on whether the card being animated is
+     * said winner ( Y translation is further for the card that lost)
      * @param yours whether the "you" player won this turn
      * @param thisCard whether this card won the turn
      * @param onEnd lambda function performed onAnimationEnd
