@@ -1,19 +1,58 @@
 package com.cianjansen.warofsuits
 
+import com.cianjansen.warofsuits.model.PlayingCard
+import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.ui.activity.game.GameActivity
 import com.cianjansen.warofsuits.ui.activity.game.GamePresenter
+import junit.framework.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentCaptor
+import org.mockito.Captor
 import org.mockito.Mock
 import org.mockito.Mockito.*
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.anyOrNull
+import org.mockito.kotlin.capture
 
 
 @RunWith(MockitoJUnitRunner::class)
 class GamePresenterTest {
     @Mock
     private lateinit var mockGameActivity: GameActivity
+
+    @Captor
+    private lateinit var listCaptor: ArgumentCaptor<ArrayList<TurnSummary>>
+
+    @Before
+    fun init() {
+        MockitoAnnotations.openMocks(this)
+    }
+
+    @Test
+    fun correctFinalScoreTest() {
+        mockGameActivity = mock(GameActivity::class.java)
+        val presenter = GamePresenter(mockGameActivity)
+
+        repeat(26) {
+            presenter.drawCard(true)
+            presenter.drawCard(false)
+        }
+
+        val intCaptor = ArgumentCaptor.forClass(Int::class.java)
+        verify(mockGameActivity).startVictoryActivity(
+            capture(intCaptor),
+            capture(listCaptor)
+        )
+
+        val turnList = listCaptor.value
+        val yourScore = intCaptor.value
+
+
+        assertEquals(turnList.filter { it.yours  }.size * 2, yourScore)
+    }
 
     @Test
     fun showCardTest() {
@@ -22,8 +61,8 @@ class GamePresenterTest {
 
         presenter.drawCard(true)
 
-        verify(mockGameActivity, times(1)).showCard(any(), eq(true))
-        verify(mockGameActivity, times(1)).showCard(null, false)
+        verify(mockGameActivity, times(1)).showYourCard(anyOrNull())
+        verify(mockGameActivity, times(1)).hideOpponentCard()
     }
 
     /**
@@ -37,8 +76,8 @@ class GamePresenterTest {
         presenter.drawCard(true)
         presenter.drawCard(false)
 
-        verify(mockGameActivity, times(1)).showScore(any(), any())
-        verify(mockGameActivity, times(1)).showWinner(any())
+        verify(mockGameActivity, times(2)).showScore(anyOrNull(), anyOrNull())
+        verify(mockGameActivity, times(1)).showWinner(anyOrNull())
     }
 
     /**
@@ -117,5 +156,4 @@ class GamePresenterTest {
         verify(mockGameActivity, times(1))
             .showSuitOrder(anyOrNull())
     }
-
 }
