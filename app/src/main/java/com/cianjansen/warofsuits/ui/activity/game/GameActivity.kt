@@ -1,12 +1,9 @@
 package com.cianjansen.warofsuits.ui.activity.game
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.animation.Animation
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.cianjansen.warofsuits.R
@@ -15,6 +12,7 @@ import com.cianjansen.warofsuits.model.PlayingCard
 import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.ui.activity.victory.VictoryActivity
 import com.cianjansen.warofsuits.ui.dialog.TwoOptionDialog
+import com.cianjansen.warofsuits.util.BounceAnimation
 
 
 /**
@@ -29,17 +27,9 @@ class GameActivity : AppCompatActivity(), GameContract.View {
      * Defines constants to be used for animation and a newIntent function
      */
     companion object {
-        private const val ANIMATION_BOUNCE_DELAY = 3000L
-
-        private const val ANIMATION_BOUNCE_GROW_SCALE = 1.1f
-
-        private const val ANIMATION_BOUNCE_TIME = 1500L
-
         private const val ANIMATION_END_ALPHA = 0f
 
-        private const val ANIMATION_MOVE_DURATION = 500L
-
-        private const val ANIMATION_RESET_SCALE = 1f
+        private const val ANIMATION_FADE_DURATION = 500L
 
         private const val ANIMATION_START_ALPHA = 1f
 
@@ -100,7 +90,7 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         binding.btRestartYours.setOnClickListener { showRestartDialog(true) }
         binding.btRestartOpponent.setOnClickListener { showRestartDialog(false) }
 
-        showBounceAnimation(binding.tvTutorialBanner)
+        BounceAnimation.showBounceAnimation(binding.tvTutorialBanner)
     }
 
     override fun setPresenter(presenter: GameContract.Presenter) {
@@ -177,12 +167,12 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         binding.tvTutorialBanner
             .animate()
             .alpha(ANIMATION_END_ALPHA)
-            .duration = ANIMATION_MOVE_DURATION
+            .duration = ANIMATION_FADE_DURATION
 
         val bannerAnimation = binding.ivBanner
             .animate()
             .alpha(ANIMATION_END_ALPHA)
-        bannerAnimation.duration = ANIMATION_MOVE_DURATION
+        bannerAnimation.duration = ANIMATION_FADE_DURATION
 
         bannerAnimation.withEndAction {
             binding.ivBanner.visibility = View.GONE
@@ -202,32 +192,6 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         }
 
         binding.pcvOpponent.moveToDiscardPile(yours, !yours) {}
-    }
-
-    private fun showBounceAnimation(view: View) {
-        val xObjectAnimator = ObjectAnimator.ofFloat(
-            view,
-            "scaleX",
-            ANIMATION_RESET_SCALE,
-            ANIMATION_BOUNCE_GROW_SCALE,
-            ANIMATION_RESET_SCALE
-        )
-        xObjectAnimator.repeatCount = Animation.INFINITE
-
-        val yObjectAnimator = ObjectAnimator.ofFloat(
-            view,
-            "scaleY",
-            ANIMATION_RESET_SCALE,
-            ANIMATION_BOUNCE_GROW_SCALE,
-            ANIMATION_RESET_SCALE
-        )
-        yObjectAnimator.repeatCount = Animation.INFINITE
-
-        val animatorSet = AnimatorSet()
-        animatorSet.playTogether(xObjectAnimator, yObjectAnimator)
-        animatorSet.duration = ANIMATION_BOUNCE_TIME
-        animatorSet.startDelay = ANIMATION_BOUNCE_DELAY
-        animatorSet.start()
     }
 
     /**
