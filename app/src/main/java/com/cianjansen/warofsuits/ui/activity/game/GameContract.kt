@@ -5,7 +5,7 @@ import com.cianjansen.warofsuits.ui.activity.base.BasePresenter
 import com.cianjansen.warofsuits.ui.activity.base.BaseView
 import com.cianjansen.warofsuits.model.PlayingCard
 
-class GameContract {
+interface GameContract {
     interface Presenter : BasePresenter {
         fun drawCard(yours: Boolean)
 

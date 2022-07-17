@@ -7,7 +7,7 @@ import com.cianjansen.warofsuits.model.PlayingCard
 /**
  * Presenter class for the game activity. Handles game logic and data
  */
-class GamePresenter(private var view: GameContract.View) : GameContract.Presenter {
+class GamePresenter(private val view: GameContract.View) : GameContract.Presenter {
     /*
     The deck to be used for this game. Contains 52 poker cards at the start, and a randomly
     determined suitOrder to break ties

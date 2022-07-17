@@ -4,7 +4,7 @@ package com.cianjansen.warofsuits.ui.activity.victory
  * Presenter for the Victory activity. Determines what player won based on the score of the "you"
  * player
  */
-class VictoryPresenter(private var view: VictoryContract.View) : VictoryContract.Presenter {
+class VictoryPresenter(private val view: VictoryContract.View) : VictoryContract.Presenter {
     companion object {
         // The total number of cards in a deck
         private const val CARDS_IN_DECK = 52

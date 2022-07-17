@@ -3,7 +3,7 @@ package com.cianjansen.warofsuits.ui.activity.victory
 import com.cianjansen.warofsuits.ui.activity.base.BasePresenter
 import com.cianjansen.warofsuits.ui.activity.base.BaseView
 
-class VictoryContract {
+interface VictoryContract {
     interface Presenter : BasePresenter {
         fun setWinner(yourScore: Int)
     }

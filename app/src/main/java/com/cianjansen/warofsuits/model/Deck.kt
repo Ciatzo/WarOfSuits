@@ -39,16 +39,11 @@ class Deck(shuffled: Boolean, randomSuitOrder: Boolean = true) {
      * @return 1 if card1 is higher, -1 if card2 is higher
      */
     fun compareCards(card1: PlayingCard, card2: PlayingCard): Int {
-        return if (card1.rank > card2.rank) {
-            1
-        } else if (card1.rank < card2.rank) {
-            -1
-        } else  {
-            if (suitOrder.indexOf(card1.suit) < suitOrder.indexOf(card2.suit)) {
-                1
-            } else {
-                -1
-            }
+        return when {
+            card1.rank  > card2.rank -> 1
+            card1.rank < card2.rank -> -1
+            suitOrder.indexOf(card1.suit) < suitOrder.indexOf(card2.suit) -> 1
+            else -> -1
         }
     }
 }
