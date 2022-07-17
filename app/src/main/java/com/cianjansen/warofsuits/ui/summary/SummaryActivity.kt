@@ -2,12 +2,17 @@ package com.cianjansen.warofsuits.ui.summary
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivitySummaryBinding
 import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.ui.views.TurnView
@@ -51,6 +56,9 @@ class SummaryActivity : AppCompatActivity() {
         turnList?.let {
             binding.rvTurns.adapter = TurnAdapter(it)
             binding.rvTurns.layoutManager = LinearLayoutManager(this)
+            binding.rvTurns.addItemDecoration(
+                VerticalSpaceItemDecoration(resources.getDimension(R.dimen.single_padding).toInt())
+            )
         }
     }
 
@@ -98,5 +106,13 @@ class SummaryActivity : AppCompatActivity() {
          * TurnViewHolder class for binding TurnSummary items
          */
         inner class TurnViewHolder(val v: TurnView) : RecyclerView.ViewHolder(v)
+    }
+
+    class VerticalSpaceItemDecoration(private val verticalSpaceHeight: Int) :
+        ItemDecoration() {
+
+        override fun getItemOffsets(outRect: Rect, itemPosition: Int, parent: RecyclerView) {
+            outRect.bottom = verticalSpaceHeight
+        }
     }
 }

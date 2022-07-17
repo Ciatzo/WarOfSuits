@@ -12,7 +12,7 @@
         android:id="@+id/iv_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/rounded_square" />
+        android:background="@drawable/card_background" />
 
     <TextView
         android:id="@+id/tv_top_left"

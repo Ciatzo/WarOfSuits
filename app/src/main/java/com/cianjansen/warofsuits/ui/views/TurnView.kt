@@ -76,20 +76,20 @@ class TurnView @JvmOverloads constructor(
 
         if (yours) {
             binding.ivYourResult.setImageDrawable(context.getDrawable(R.drawable.done_48px))
-            binding.ivYourResult.setBackgroundColor(context.getColor(R.color.green_victory))
+            binding.ivYourResult.setColorFilter(context.getColor(R.color.green_victory))
 
             binding.ivOpponentResult.setImageDrawable(
                 context.getDrawable(R.drawable.close_48px)
             )
-            binding.ivOpponentResult.setBackgroundColor(context.getColor(R.color.red_defeat))
+            binding.ivOpponentResult.setColorFilter(context.getColor(R.color.red_defeat))
         } else {
             binding.ivOpponentResult.setImageDrawable(context.getDrawable(R.drawable.done_48px))
-            binding.ivOpponentResult.setBackgroundColor(context.getColor(R.color.green_victory))
+            binding.ivOpponentResult.setColorFilter(context.getColor(R.color.green_victory))
 
             binding.ivYourResult.setImageDrawable(
                 context.getDrawable(R.drawable.close_48px)
             )
-            binding.ivYourResult.setBackgroundColor(context.getColor(R.color.red_defeat))
+            binding.ivYourResult.setColorFilter(context.getColor(R.color.red_defeat))
         }
     }
 }

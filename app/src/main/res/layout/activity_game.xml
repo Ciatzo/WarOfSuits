@@ -60,7 +60,7 @@
         app:layout_constraintLeft_toLeftOf="@id/btDrawCardYours"
         app:layout_constraintRight_toRightOf="@id/btDrawCardYours"
         android:textSize="@dimen/text_suit_order"
-        android:background="@drawable/rounded_square"
+        android:background="@drawable/card_background"
         android:backgroundTint="@color/gray_800"
         android:textColor="@color/white"
         android:gravity="center"/>
