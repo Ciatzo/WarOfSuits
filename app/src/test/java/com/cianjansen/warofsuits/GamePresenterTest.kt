@@ -1,7 +1,7 @@
 package com.cianjansen.warofsuits
 
-import com.cianjansen.warofsuits.ui.game.GameActivity
-import com.cianjansen.warofsuits.ui.game.GamePresenter
+import com.cianjansen.warofsuits.ui.activity.game.GameActivity
+import com.cianjansen.warofsuits.ui.activity.game.GamePresenter
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock

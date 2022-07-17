@@ -1,4 +1,4 @@
-package com.cianjansen.warofsuits.ui.victory
+package com.cianjansen.warofsuits.ui.activity.victory
 
 /**
  * Presenter for the Victory activity. Determines what player won based on the score of the "you"

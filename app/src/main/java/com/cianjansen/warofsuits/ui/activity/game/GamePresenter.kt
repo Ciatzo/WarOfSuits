@@ -1,4 +1,4 @@
-package com.cianjansen.warofsuits.ui.game
+package com.cianjansen.warofsuits.ui.activity.game
 
 import com.cianjansen.warofsuits.model.TurnSummary
 import com.cianjansen.warofsuits.model.Deck

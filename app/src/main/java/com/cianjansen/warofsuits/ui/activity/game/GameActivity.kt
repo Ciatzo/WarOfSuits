@@ -1,4 +1,4 @@
-package com.cianjansen.warofsuits.ui.game
+package com.cianjansen.warofsuits.ui.activity.game
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -13,8 +13,8 @@ import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityGameBinding
 import com.cianjansen.warofsuits.model.PlayingCard
 import com.cianjansen.warofsuits.model.TurnSummary
-import com.cianjansen.warofsuits.ui.victory.VictoryActivity
-import com.cianjansen.warofsuits.ui.views.TwoOptionDialog
+import com.cianjansen.warofsuits.ui.activity.victory.VictoryActivity
+import com.cianjansen.warofsuits.ui.dialog.TwoOptionDialog
 
 
 /**

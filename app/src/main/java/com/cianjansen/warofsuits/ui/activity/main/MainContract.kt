@@ -1,7 +1,7 @@
-package com.cianjansen.warofsuits.ui.main
+package com.cianjansen.warofsuits.ui.activity.main
 
-import com.cianjansen.warofsuits.ui.base.BasePresenter
-import com.cianjansen.warofsuits.ui.base.BaseView
+import com.cianjansen.warofsuits.ui.activity.base.BasePresenter
+import com.cianjansen.warofsuits.ui.activity.base.BaseView
 
 class MainContract {
     interface Presenter : BasePresenter {

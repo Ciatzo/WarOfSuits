@@ -1,4 +1,4 @@
-package com.cianjansen.warofsuits.ui.victory
+package com.cianjansen.warofsuits.ui.activity.victory
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cianjansen.warofsuits.R
 import com.cianjansen.warofsuits.databinding.ActivityVictoryBinding
 import com.cianjansen.warofsuits.model.TurnSummary
-import com.cianjansen.warofsuits.ui.summary.SummaryActivity
+import com.cianjansen.warofsuits.ui.activity.summary.SummaryActivity
 
 /**
  * View class for Victory Activity. Shows visually which player won and the final score

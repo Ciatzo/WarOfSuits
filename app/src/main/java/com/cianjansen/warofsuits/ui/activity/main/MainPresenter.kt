@@ -1,4 +1,4 @@
-package com.cianjansen.warofsuits.ui.main
+package com.cianjansen.warofsuits.ui.activity.main
 
 /**
  * The presenter for the main activity. Handles user input delegation
