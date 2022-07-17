@@ -35,23 +35,13 @@ class GameActivity : AppCompatActivity(), GameContract.View {
 
         private const val ANIMATION_BOUNCE_TIME = 1500L
 
-        private const val ANIMATION_CARD_GROW_SCALE = 1.3f
-
         private const val ANIMATION_END_ALPHA = 0f
 
-        private const val ANIMATION_HIGHLIGHT_DURATION = 250L
-
         private const val ANIMATION_MOVE_DURATION = 500L
-
-        private const val ANIMATION_RESET_DURATION = 0L
-
-        private const val ANIMATION_RESET_FACTOR = 0f
 
         private const val ANIMATION_RESET_SCALE = 1f
 
         private const val ANIMATION_START_ALPHA = 1f
-
-        private const val ANIMATION_X_MOVE_FACTOR = 2
 
         /**
          * Creates intent to this activity
@@ -151,33 +141,10 @@ class GameActivity : AppCompatActivity(), GameContract.View {
      * Shows which player won by highlighting their card with an expanding "pop-up" animation
      */
     override fun showWinner(yours: Boolean) {
-        val winAnim = if (yours) {
-            binding.pcvYours.animate()
+        if (yours) {
+            binding.pcvYours.showWinAnimation { hideCards(yours) }
         } else {
-            binding.pcvOpponent.animate()
-        }
-
-        winAnim
-            .scaleX(ANIMATION_CARD_GROW_SCALE)
-            .scaleY(ANIMATION_CARD_GROW_SCALE)
-            .duration = ANIMATION_HIGHLIGHT_DURATION
-
-        // withEndAction used for non-blocking delay between animation steps
-        winAnim.withEndAction {
-            val resetScaleAnim = if (yours) {
-                binding.pcvYours.animate()
-            } else {
-                binding.pcvOpponent.animate()
-            }
-
-            resetScaleAnim
-                .scaleX(ANIMATION_RESET_SCALE)
-                .scaleY(ANIMATION_RESET_SCALE)
-                .duration = ANIMATION_HIGHLIGHT_DURATION
-
-            resetScaleAnim.withEndAction {
-                hideCards(yours)
-            }
+            binding.pcvOpponent.showWinAnimation { hideCards(yours) }
         }
     }
 
@@ -203,6 +170,9 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         finish()
     }
 
+    /**
+     * Hides the tutorial banner
+     */
     private fun hideBanner() {
         binding.tvTutorialBanner
             .animate()
@@ -220,74 +190,18 @@ class GameActivity : AppCompatActivity(), GameContract.View {
         }
     }
 
-
     /**
      * Function for playing the animation that hides the cards. Cards are animated flying towards
      * the discard pile of the player that won the turn
      * @param yours whether the "you" player won the turn. False in case the "opponent" player won
      */
     private fun hideCards(yours: Boolean) {
-        /*
-         Both cards follow the same X translation, from the center towards the discard pile of the
-          player that won the turn
-         */
-        val translationX = if (yours) {
-            binding.pcvYours.width.toFloat()
-        } else {
-            -binding.pcvYours.width.toFloat()
-        }
-
-        /*
-        The Y translation is different for the two cards. The card of the losing player has to fly
-        further to reach the winning player's discard pile
-         */
-        val yTranslationYourCard = if (yours) {
-            binding.pcvYours.height.toFloat()
-        } else {
-            -ANIMATION_X_MOVE_FACTOR * binding.pcvYours.height.toFloat()
-        }
-
-        val yTranslationOpponentCard = if (yours) {
-            ANIMATION_X_MOVE_FACTOR * binding.pcvYours.height.toFloat()
-        } else {
-            -binding.pcvYours.height.toFloat()
-        }
-
-        val yourCardAnimation = binding.pcvYours.animate()
-            .translationY(yTranslationYourCard)
-            .translationX(translationX)
-            .alpha(ANIMATION_END_ALPHA)
-        yourCardAnimation.duration = ANIMATION_MOVE_DURATION
-
-        // Cards are animated back to their starting position invisibly after animation ends
-        yourCardAnimation.withEndAction {
-            val endAnim = binding.pcvYours.animate()
-                .translationY(ANIMATION_RESET_FACTOR)
-                .translationX(ANIMATION_RESET_FACTOR)
-            endAnim.duration = ANIMATION_RESET_DURATION
-            endAnim.startDelay = ANIMATION_RESET_DURATION
-
-            /*
-            Card draw buttons get re-enabled at the end of the card animation, preventing players
-             from drawing while a turn is still in progress
-             */
+        binding.pcvYours.moveToDiscardPile(yours, yours) {
             binding.btDrawCardYours.isEnabled = true
             binding.btDrawCardOpponent.isEnabled = true
         }
 
-        val opponentCardAnimation = binding.pcvOpponent.animate()
-            .translationY(yTranslationOpponentCard)
-            .translationX(translationX)
-            .alpha(ANIMATION_END_ALPHA)
-        opponentCardAnimation.duration = ANIMATION_MOVE_DURATION
-
-        opponentCardAnimation.withEndAction {
-            val endAnim = binding.pcvOpponent.animate()
-                .translationY(ANIMATION_RESET_FACTOR)
-                .translationX(ANIMATION_RESET_FACTOR)
-            endAnim.duration = ANIMATION_RESET_DURATION
-            endAnim.startDelay = ANIMATION_RESET_DURATION
-        }
+        binding.pcvOpponent.moveToDiscardPile(yours, !yours) {}
     }
 
     private fun showBounceAnimation(view: View) {
