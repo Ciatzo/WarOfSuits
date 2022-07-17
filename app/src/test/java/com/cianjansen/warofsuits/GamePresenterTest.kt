@@ -31,6 +31,9 @@ class GamePresenterTest {
         MockitoAnnotations.openMocks(this)
     }
 
+    /**
+     * Tests that the final score attributed to the player is twice the amount of turns won
+     */
     @Test
     fun correctFinalScoreTest() {
         mockGameActivity = mock(GameActivity::class.java)
@@ -54,6 +57,10 @@ class GamePresenterTest {
         assertEquals(turnList.filter { it.yours  }.size * 2, yourScore)
     }
 
+    /**
+     * Tests that drawing a card only for the "you" player results in the card being shown, and
+     * the card of the opponent remaining hidden
+     */
     @Test
     fun showCardTest() {
         mockGameActivity = mock(GameActivity::class.java)
