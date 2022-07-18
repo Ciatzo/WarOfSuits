@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clVictoryOpponent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@color/red_defeat"
+>
+
+        <TextView
+            android:id="@+id/tvVictoryOpponent"
+            app:layout_constraintTop_toBottomOf="@id/btExitOpponent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/victory_activity_victory"
+            android:textSize="@dimen/text_playing_card"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:rotation="180"/>
+
+        <Button
+            android:id="@+id/btExitOpponent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btSummaryOpponent"
+            app:layout_constraintBottom_toTopOf="@id/tvVictoryOpponent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/victory_activity_go_home"
+            android:layout_margin="@dimen/single_padding"
+            android:rotation="180"
+            android:padding="@dimen/double_padding"/>
+
+        <Button
+            android:id="@+id/btSummaryOpponent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/btExitOpponent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvVictoryOpponent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/victory_activity_show_summary"
+            android:layout_margin="@dimen/single_padding"
+            android:rotation="180"
+            android:padding="@dimen/double_padding"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clVictoryYours"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@color/red_defeat">
+
+        <TextView
+            android:id="@+id/tvVictoryYours"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btExitYours"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/victory_activity_defeat"
+            android:textSize="@dimen/text_playing_card"
+            android:textColor="@color/white"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/btExitYours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/btSummaryYours"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvVictoryYours"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/victory_activity_go_home"
+            android:layout_margin="@dimen/single_padding"
+            android:padding="@dimen/double_padding"/>
+
+        <Button
+            android:id="@+id/btSummaryYours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btExitYours"
+            app:layout_constraintTop_toBottomOf="@id/tvVictoryYours"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/victory_activity_show_summary"
+            android:layout_margin="@dimen/single_padding"
+            android:padding="@dimen/double_padding"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

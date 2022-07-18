@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <com.cianjansen.warofsuits.ui.views.PlayingCardView
+        android:id="@+id/pcv_yours"
+        android:layout_width="@dimen/playing_card_width"
+        android:layout_height="@dimen/playing_card_height"
+        tools:rank="K"
+        tools:suit="♦"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pcv_opponent"
+        android:layout_marginBottom="@dimen/quad_padding"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/half_padding"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="?colorPrimary"/>
+
+    <com.cianjansen.warofsuits.ui.views.PlayingCardView
+        android:id="@+id/pcv_opponent"
+        android:layout_width="@dimen/playing_card_width"
+        android:layout_height="@dimen/playing_card_height"
+        tools:rank="K"
+        tools:suit="♦"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/pcv_yours"
+        android:layout_marginTop="@dimen/quad_padding"
+        android:layout_marginBottom="@dimen/quad_padding"
+        />
+
+    <ImageView
+        android:id="@+id/ivBanner"
+        android:layout_width="@dimen/banner"
+        android:layout_height="@dimen/banner"
+        android:background="@drawable/arrow_downward_48px"
+        android:backgroundTint="@color/gray_800"
+        app:layout_constraintLeft_toLeftOf="@id/btDrawCardYours"
+        app:layout_constraintRight_toRightOf="@id/btDrawCardYours"
+        app:layout_constraintBottom_toTopOf="@id/btDrawCardYours" />
+
+    <TextView
+        android:id="@+id/tvTutorialBanner"
+        android:layout_width="@dimen/button_large"
+        android:layout_height="wrap_content"
+        android:text="@string/game_activity_banner"
+        app:layout_constraintBottom_toTopOf="@id/ivBanner"
+        android:padding="@dimen/single_padding"
+        app:layout_constraintLeft_toLeftOf="@id/btDrawCardYours"
+        app:layout_constraintRight_toRightOf="@id/btDrawCardYours"
+        android:textSize="@dimen/text_suit_order"
+        android:background="@drawable/card_background"
+        android:backgroundTint="@color/gray_800"
+        android:textColor="@color/white"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/btDrawCardYours"
+        android:layout_width="@dimen/button_large"
+        android:layout_height="@dimen/button_large"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/quad_padding"
+        android:layout_marginLeft="@dimen/double_padding"
+        android:text="@string/game_activity_draw_card"/>
+
+    <Button
+        android:id="@+id/btDrawCardOpponent"
+        android:layout_width="@dimen/button_large"
+        android:layout_height="@dimen/button_large"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/quad_padding"
+        android:layout_marginRight="@dimen/double_padding"
+        android:rotation = "180"
+        android:text="@string/game_activity_draw_card"/>
+
+    <TextView
+        android:id="@+id/tvDiscardYours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="@dimen/double_padding"
+        android:layout_marginBottom="@dimen/quad_padding"
+        android:backgroundTint="@color/cardview_light_background"
+        android:text="@string/game_activity_zero"
+        android:textSize="@dimen/text_extra_large"
+        android:textColor="@color/gray_800"/>
+
+    <TextView
+        android:id="@+id/tvDiscardOpponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/double_padding"
+        android:layout_marginTop="@dimen/quad_padding"
+        android:rotation="180"
+        android:backgroundTint="@color/cardview_light_background"
+        android:text="@string/game_activity_zero"
+        android:textSize="@dimen/text_extra_large"
+        android:textColor="@color/gray_800"/>
+
+    <TextView
+        android:id="@+id/tvSuitOrderYours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/btDrawCardYours"
+        android:textSize="@dimen/text_suit_order"
+        tools:text="Suit Priority:\nA>B>C>D"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/tvSuitOrderOpponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btDrawCardOpponent"
+        android:textSize="@dimen/text_suit_order"
+        android:rotation="180"
+        tools:text="Priority:\nA>B>C>D"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/btForfeitYours"
+        android:layout_width="@dimen/button_small"
+        android:layout_height="@dimen/button_small"
+        android:background="@drawable/logout_48px"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/offset_button"
+        android:layout_marginRight="@dimen/double_padding"/>
+
+    <Button
+        android:id="@+id/btRestartYours"
+        android:layout_width="@dimen/button_small"
+        android:layout_height="@dimen/button_small"
+        android:background="@drawable/restart_alt_48px"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btForfeitYours"
+        android:layout_marginTop="@dimen/double_padding"
+        android:layout_marginRight="@dimen/double_padding"/>
+
+    <Button
+        android:id="@+id/btForfeitOpponent"
+        android:layout_width="@dimen/button_small"
+        android:layout_height="@dimen/button_small"
+        android:background="@drawable/logout_48px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/offset_button"
+        android:layout_marginLeft="@dimen/double_padding"
+        android:rotation="180"/>
+
+    <Button
+        android:id="@+id/btRestartOpponent"
+        android:layout_width="@dimen/button_small"
+        android:layout_height="@dimen/button_small"
+        android:background="@drawable/restart_alt_48px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btForfeitOpponent"
+        android:layout_marginBottom="@dimen/double_padding"
+        android:layout_marginLeft="@dimen/double_padding"
+        android:rotation="180"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

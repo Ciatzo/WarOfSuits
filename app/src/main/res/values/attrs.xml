@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PlayingCardView">
+        <attr name="suit" format="string" />
+        <attr name="rank" format="string" />
+    </declare-styleable>
+    <declare-styleable name="TurnView">
+        <attr name="yourCard" format="string" />
+        <attr name="opponentCard" format="string" />
+        <attr name="turn" format="string"/>
+        <attr name="yours" format="boolean"/>
+    </declare-styleable>
+</resources>

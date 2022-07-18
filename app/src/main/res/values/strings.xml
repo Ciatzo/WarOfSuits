@@ -1,4 +1,29 @@
 <resources>
     <string name="app_name">WarOfSuits</string>
-    <string name="action_settings">Settings</string>
+    <string name="main_start_game">Start Game</string>
+    <string name="main_activity_intro">WarOfSuits game implementation for Wallapop Android Engineer application, by Cian Jansen.</string>
+    <string name="game_activity_zero">0</string>
+    <string name="game_activity_draw_card">Draw Card</string>
+    <string name="game_activity_forfeit">Do you want to forfeit the game?</string>
+    <string name="game_activity_forfeit_yes">Give Up</string>
+    <string name="game_activity_forfeit_no">Keep Playing</string>
+    <string name="game_activity_quit">Do you want to quit the game?</string>
+    <string name="game_activity_quit_title">Quit?</string>
+    <string name="game_activity_quit_yes">Yes</string>
+    <string name="game_activity_quit_no">Keep Playing</string>
+    <string name="game_activity_restart">Would you like to restart the game?</string>
+    <string name="game_activity_restart_yes">Yes</string>
+    <string name="game_activity_restart_no">No</string>
+    <string name="game_activity_banner">Start the game by drawing a card!</string>
+
+    <string name="suit_order">Suit Priority:</string>
+    <string name="victory_activity_victory">🎉 You Win! 🎉\nFinal Score:\n</string>
+    <string name="victory_activity_defeat">😞 You Lose… 😞\nFinal Score:\n</string>
+    <string name="victory_activity_draw">😐 It\'s a Draw 😐\nFinal Score:\n</string>
+    <string name="victory_activity_go_home">Go Home</string>
+    <string name="victory_activity_show_summary">Show Summary</string>
+    <string name="summary_title">Game Summary</string>
+    <string name="turn_view_turn">Turn %s</string>
+    <string name="turn_view_your">You:\n%s</string>
+    <string name="turn_view_opponent">Opponent:\n%s</string>
 </resources>
